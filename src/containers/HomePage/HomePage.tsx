@@ -1,3 +1,4 @@
+import { AutocompleteInput } from '@app/components/AutocompleteInput';
 import { Button } from '@app/components/Button';
 import { MyModal } from '@app/components/Modal';
 import Sortable, { SortableProps } from '@app/components/Sortable/Sortable';
@@ -40,6 +41,10 @@ export const HomePage: FC = () => {
 
   return (
     <div css={{ padding: '10px' }}>
+      <h2>Demo autocomplete input</h2>
+      <AutocompleteInput data={['Toán', 'Lí', 'Hóa', 'Sinh', 'Sử', 'Địa']} onSelect={console.log} />
+      <hr />
+      <hr />
       <h2>Demo modal</h2>
       <Button
         onClick={() => {
