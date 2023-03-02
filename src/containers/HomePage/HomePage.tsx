@@ -1,6 +1,6 @@
 import { AutocompleteInput } from '@app/components/AutocompleteInput';
 import { Button } from '@app/components/Button';
-import { MyModal } from '@app/components/Modal';
+import { MyModal, MyModalProps } from '@app/components/Modal';
 import Sortable, { SortableProps } from '@app/components/Sortable/Sortable';
 import { sectionsData } from '@app/sections';
 import { reorder } from '@app/utils/functions/reorder';
@@ -17,6 +17,7 @@ export const HomePage: FC = () => {
   const [sections, setSections] = useState(sectionsData);
   const [tab, setTab] = useState('');
   const [visible, setVisible] = useState(false);
+  const [modalSize, setModalSize] = useState<MyModalProps['size']>('small');
 
   useEffect(() => {
     pmPopup.emit('@sections', { sections: sections });
@@ -54,14 +55,23 @@ export const HomePage: FC = () => {
         Open modal
       </Button>
       <MyModal
-        size="small"
+        size={modalSize}
         isVisible={visible}
         headerText="header ne"
         onCancel={() => {
           setVisible(false);
+          setModalSize('small');
+        }}
+        onOk={() => {
+          setVisible(false);
+          setModalSize('small');
         }}
       >
-        Hehe
+        Change modal size
+        <br />
+        <Button onClick={() => setModalSize('small')}>Small</Button>
+        <Button onClick={() => setModalSize('medium')}>Medium</Button>
+        <Button onClick={() => setModalSize('large')}>Large</Button>
       </MyModal>
       <hr />
       <hr />

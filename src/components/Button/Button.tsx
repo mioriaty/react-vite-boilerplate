@@ -9,12 +9,7 @@ export interface ButtonProps {
 
 export const Button: FC<ButtonProps> = ({ children, onClick }) => {
   return (
-    <button
-      css={styles.container}
-      onClick={() => {
-        onClick?.();
-      }}
-    >
+    <button css={styles.container} onClick={onClick}>
       {children}
     </button>
   );

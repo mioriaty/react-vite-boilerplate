@@ -52,8 +52,8 @@ export const MyModal = <T extends any = any>({
 }: MyModalProps<T>) => {
   const [height, setHeight] = useState<string>('auto');
   const childRef = useRef<HTMLDivElement | null>(null);
-  const cancelText = cancelTextProp ?? 'Ok';
-  const okText = okTextProp ?? 'Cancel';
+  const cancelText = cancelTextProp ?? 'Cancel';
+  const okText = okTextProp ?? 'Ok';
 
   const setHeightState = () => {
     const maxHeight = window.innerHeight - 60;
