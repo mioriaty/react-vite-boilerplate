@@ -1,6 +1,8 @@
 import { Reducers } from './store/rootStore';
 
 declare global {
+  declare type Status = 'idle' | 'loading' | 'success' | 'failure';
+
   declare type AppState = Reducers;
 
   declare type CombineSliceActions<T> = {

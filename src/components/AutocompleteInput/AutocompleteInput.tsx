@@ -23,7 +23,7 @@ export const AutocompleteInput: FC<AutocompleteInputProps> = ({ data, onSelect, 
   const inputField = useRef<HTMLInputElement>(null);
   const theme = useTheme();
 
-  const _handleVisible = () => {
+  const handleVisible = () => {
     setWidth(inputField.current?.offsetWidth || 0);
     setHeight(inputField.current?.offsetHeight || 0);
 
@@ -37,28 +37,28 @@ export const AutocompleteInput: FC<AutocompleteInputProps> = ({ data, onSelect, 
   };
 
   useEffect(() => {
-    document.addEventListener('click', _handleVisible);
+    document.addEventListener('click', handleVisible);
     return () => {
-      document.removeEventListener('click', _handleVisible);
+      document.removeEventListener('click', handleVisible);
     };
   }, []);
 
-  const _handleChange = (value: string) => {
+  const handleChange = (value: string) => {
     setInputValue(value);
   };
 
-  const _handleSelect = (suggestion: string) => () => {
+  const handleSelect = (suggestion: string) => () => {
     setInputValue(suggestion);
     onSelect?.(suggestion);
   };
 
-  const _renderSuggestItem = (item: string, index: number) => {
+  const renderSuggestItem = (item: string, index: number) => {
     if (renderSuggestion) {
       renderSuggestion(item, index);
     }
 
     return (
-      <div css={{ padding: '10px', cursor: 'pointer', backgroundColor: theme.colors.gray2 }} key={index} onClick={_handleSelect(item)}>
+      <div css={{ padding: '10px', cursor: 'pointer', backgroundColor: theme.colors.gray2 }} key={index} onClick={handleSelect(item)}>
         {item}
       </div>
     );
@@ -74,15 +74,15 @@ export const AutocompleteInput: FC<AutocompleteInputProps> = ({ data, onSelect, 
 
     return (
       <div css={[styles.tooltipText, styles.placementTooltipText(top, left, width, height)]}>
-        {_data.length === 0 ? 'Empty' : _data.map(_renderSuggestItem)}
+        {_data.length === 0 ? 'Empty' : _data.map(renderSuggestItem)}
       </div>
     );
   };
 
   return (
-    <div>
-      <TextInput value={inputValue} onValueChange={_handleChange} innerRef={inputField} />
+    <>
+      <TextInput value={inputValue} onValueChange={handleChange} innerRef={inputField} />
       {visible && createPortal(renderSuggestions())}
-    </div>
+    </>
   );
 };
