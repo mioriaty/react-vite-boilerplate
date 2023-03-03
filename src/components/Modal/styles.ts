@@ -19,7 +19,7 @@ export const overlay = () =>
     width: '100%',
     height: '100%',
     zIndex: -1,
-    backgroundColor: `rgba(0, 0, 0, 0.6)`,
+    backgroundColor: `rgba(0,0,0, 0.6)`,
   });
 
 export const content =
@@ -34,7 +34,6 @@ export const content =
         ? {
             width: '460px',
             height,
-            minHeight: '150px',
           }
         : size === 'medium'
         ? {
@@ -66,6 +65,9 @@ export const footer = ({ colors }: Theme) =>
   css({
     padding: '10px',
     borderTop: `1px solid ${colors.gray3}`,
+    height: '56px',
+    minHeight: '56px',
+    maxHeight: '56px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -90,7 +92,7 @@ export const containerHeader = ({ colors }: Theme) =>
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '5px 10px',
+    padding: '10px',
   });
 
 export const close = css({

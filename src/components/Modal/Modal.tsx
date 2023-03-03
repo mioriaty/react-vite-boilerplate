@@ -98,6 +98,7 @@ export const MyModal = <T extends any = any>({
           <div css={{ display: 'flex' }}>
             <div>
               <Button
+                size="extra-small"
                 onClick={() => {
                   onButtonCancel?.();
                   onCancel?.();
@@ -107,8 +108,9 @@ export const MyModal = <T extends any = any>({
               </Button>
             </div>
             <div css={{ marginLeft: '10px' }}>
-              {/* isLoading */}
               <Button
+                loading={isLoading}
+                size="extra-small"
                 onClick={() => {
                   if (isLoading) {
                     return;
