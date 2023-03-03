@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import { DemoAutocomplete, DemoModal, DemoPostmessage, DemoWebWorker } from '../DemoFeatures';
+import { DemoUseTransition } from '../DemoFeatures/UseTransition';
 
 export const HomePage: FC = () => {
   return (
@@ -15,6 +16,9 @@ export const HomePage: FC = () => {
       <hr />
       <hr />
       <DemoPostmessage />
+      <hr />
+      <hr />
+      <DemoUseTransition />
     </div>
   );
 };
