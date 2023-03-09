@@ -1,5 +1,5 @@
 import { createState } from '@app/utils/functions/createState';
-import { delay } from '@reduxjs/toolkit/dist/utils';
+import { delay } from '@app/utils/functions/delay';
 import { v4 } from 'uuid';
 
 import { TodoItem } from './@types';
