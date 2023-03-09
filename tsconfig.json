@@ -24,7 +24,9 @@
       "hocs/*": ["./src/hocs/*"],
       "hooks/*": ["./src/hooks/*"],
       "store/*": ["./src/store/*"],
-      "routes/*": ["./src/routes/*"]
+      "routes/*": ["./src/routes/*"],
+      "httpHandler/*": ["./src/httpHandler/*"],
+      "services/*": ["./src/services/*"]
     },
     "baseUrl": "."
   },

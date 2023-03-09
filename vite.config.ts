@@ -18,6 +18,8 @@ export default defineConfig({
       hooks: path.resolve(__dirname, './src/hooks/'),
       store: path.resolve(__dirname, './src/store/'),
       routes: path.resolve(__dirname, './src/routes/'),
+      httpHandler: path.resolve(__dirname, './src/httpHandler/'),
+      services: path.resolve(__dirname, './src/services/'),
     },
   },
   build: {
