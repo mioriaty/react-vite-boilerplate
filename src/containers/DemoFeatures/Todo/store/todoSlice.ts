@@ -1,26 +1,27 @@
 import { TodoItem } from '@app/services/Todo';
-import { createSlice, PayloadAction, SliceCaseReducers } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-import { getTodos } from './thunks';
+import { createTodo, deleteTodos, getTodos, updateTodo } from './thunks';
 
 interface State {
   todo: TodoItem[];
+
   getStatus: Status;
-  searchKey: string;
+  createStatus: Status;
+  updateQueueStatus: string[];
+  deleteQueueStatus: string[];
 }
 
 export const todoSlice = createSlice({
   initialState: {
     todo: [],
     getStatus: 'idle',
-    searchKey: '',
+    createStatus: 'idle',
+    deleteQueueStatus: [],
+    updateQueueStatus: [],
   } as State,
   name: '@todo',
-  reducers: {
-    setSearchKey: (state, action: PayloadAction<string>) => {
-      state.searchKey = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
     builder.addCase(getTodos.pending, state => {
       state.getStatus = 'loading';
@@ -32,9 +33,32 @@ export const todoSlice = createSlice({
     builder.addCase(getTodos.rejected, state => {
       state.getStatus = 'failure';
     });
+    builder.addCase(createTodo.pending, state => {
+      state.createStatus = 'loading';
+    });
+    builder.addCase(createTodo.fulfilled, (state, action) => {
+      state.createStatus = 'success';
+      state.todo = state.todo.concat(action.payload);
+    });
+    builder.addCase(createTodo.rejected, state => {
+      state.createStatus = 'failure';
+    });
+    builder.addCase(updateTodo.pending, (state, action) => {
+      state.updateQueueStatus = state.updateQueueStatus.concat(action.meta.arg.id);
+    });
+    builder.addCase(updateTodo.fulfilled, (state, action) => {
+      state.updateQueueStatus = state.updateQueueStatus.filter(id => id !== action.meta.arg.id);
+      state.todo = state.todo.map(item => {
+        if (item.id === action.payload.id) {
+          return action.payload;
+        }
+        return item;
+      });
+    });
+    builder.addCase(updateTodo.rejected, (state, action) => {
+      state.updateQueueStatus = state.updateQueueStatus.filter(id => id !== action.meta.arg.id);
+    });
   },
 });
-
-export const { setSearchKey } = todoSlice.actions;
 
 export const todoSelector = (state: AppState) => state.demos.todo;

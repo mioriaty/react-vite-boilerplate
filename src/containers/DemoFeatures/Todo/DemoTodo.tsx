@@ -4,12 +4,12 @@ import { withDebounce } from '@app/hocs/withDebounce';
 import { useAppDispatch, useAppSelector } from '@app/store';
 import { useEffect } from 'react';
 
-import { getTodos, setSearchKey, todoSelector } from './store';
+import { getTodos, todoSelector } from './store';
 
-const InputWithDebounce = withDebounce({ WrappedComponent: TextInput, propValue: 'value', propOnChange: 'onValueChange' });
+const _InputWithDebounce = withDebounce({ WrappedComponent: TextInput, propValue: 'value', propOnChange: 'onValueChange' });
 
 export const DemoTodo = () => {
-  const { todo, getStatus, searchKey } = useAppSelector(todoSelector);
+  const { todo, getStatus } = useAppSelector(todoSelector);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -19,12 +19,6 @@ export const DemoTodo = () => {
   return (
     <div>
       <h2>Demo todo</h2>
-      <InputWithDebounce
-        value={searchKey}
-        onValueChange={val => {
-          dispatch(setSearchKey(val));
-        }}
-      />
       <AsyncComponent status={getStatus} Success={JSON.stringify(todo, null, 2)} />
     </div>
   );
