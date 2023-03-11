@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import { MyModalProps } from 'src/MyModal/MyModal';
+
+import { MyModalProps } from '../Modal/Modal';
 
 export interface OnChangeParams {
   step: Step;
@@ -16,11 +17,11 @@ export interface StepModalProps {
   onChange?: ({ indexStep, step }: OnChangeParams) => void;
 }
 
-export type Navigate = (callback: (navigation: Omit<NavigationProps, 'go'>) => void) => void;
+export type Navigate = (callback: (navigation: NavigationProps) => void) => void;
 
 export interface StepModalStatic {
   getId: (id: StepModalProps['id']) => {
-    onChange: Navigate;
+    onNavigate: Navigate;
   };
 }
 
@@ -29,7 +30,7 @@ export interface Step {
   heading: string;
   content: ReactNode;
   stepDescription?: string;
-  buttons?: ReactNode;
+  buttons?: (params: NavigationProps) => ReactNode;
 }
 
 export interface UseStepParams {

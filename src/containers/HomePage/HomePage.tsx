@@ -1,9 +1,6 @@
 import { FC } from 'react';
 
-import { DemoAutocomplete, DemoModal, DemoPostmessage, DemoWebWorker } from '../DemoFeatures';
-import { DemoModalStep } from '../DemoFeatures/ModalStep/DemoModalStep';
-import { DemoTodo } from '../DemoFeatures/Todo';
-import { DemoUseTransition } from '../DemoFeatures/UseTransition';
+import { DemoAutocomplete, DemoModal, DemoModalStep, DemoPostmessage, DemoTodo, DemoUseTransition, DemoWebWorker } from '../DemoFeatures';
 
 export const HomePage: FC = () => {
   return (

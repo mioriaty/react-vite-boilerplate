@@ -1,8 +1,8 @@
-import { ChangeEvent, FC } from 'react';
+import { ChangeEvent, FC, HTMLProps } from 'react';
 
 type Size = 'small' | 'medium' | 'large';
 
-export interface TextInputProps {
+export interface TextInputProps extends Omit<HTMLProps<HTMLInputElement>, 'size'> {
   size?: 'small' | 'medium' | 'large';
   value?: string;
   innerRef?: React.RefObject<HTMLInputElement>;

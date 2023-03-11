@@ -1,4 +1,5 @@
 import { FC, useEffect } from 'react';
+import { useDeepCompareEffect } from 'react-use';
 
 import { MyModal } from '../Modal/Modal';
 import * as styles from './styles';
@@ -20,66 +21,50 @@ export const ModalStep: FC<StepModalProps> & StepModalStatic = ({
 
   useEffect(() => {
     navigateHandlers.set(id, callback => {
-      callback({
-        next: navigation.next,
-        previous: navigation.previous,
-      });
+      callback({ next: navigation.next, previous: navigation.previous, go: navigation.go });
     });
     return () => {
       navigateHandlers.delete(id);
     };
-  }, [id, navigation.next, navigation.previous]);
+  }, [navigation, id]);
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     if (visible) {
-      onChange?.({ indexStep: index, step });
+      onChange?.({ step, indexStep: index });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible, index, step]);
+  }, [[visible], [index]]);
 
-  const renderStepDot = data.map((item, _index, originArr) => {
-    const _stepIdx = _index + 1;
+  const _renderStepHeader = data.map((item, index) => {
+    const _stepIdx = index + 1;
+
     return (
-      <div className="step-modal__dot-container" key={item.id} css={[styles.dotContainer, { width: `calc(100% / ${originArr.length})` }]}>
-        <div
-          onClick={() => {
-            navigation.go(item.id);
-          }}
-          css={[
-            styles.dot,
-            {
-              borderStyle: 'solid',
-              borderWidth: '1px',
-              borderColor: item.id === step.id ? 'primary' : 'gray4',
-            },
-          ]}
-        >
+      <div key={item.id} className="step-modal__dot-container" css={styles.dotContainer}>
+        <div className="step-modal__dot-index" css={styles.dot(item.id === step.id)}>
           {_stepIdx}
         </div>
         <div className="step-modal__dot-text" css={styles.dotText}>
           <span>Step {_stepIdx}</span>
           <br />
-          {item.stepDescription && (
-            <span color="gray5" css={{ fontSize: '12px' }}>
-              {item.stepDescription}
-            </span>
-          )}
+          {item.stepDescription && <span>{item.stepDescription}</span>}
         </div>
       </div>
     );
   });
 
-  const renderContent = () => {
+  const _renderContent = () => {
     return (
       <div css={styles.container}>
-        <div css={styles.steps}>{renderStepDot}</div>
+        <div css={styles.steps}>{_renderStepHeader}</div>
 
         <div css={styles.item}>
-          <div css={styles.title}>{step.heading}</div>
+          {step.heading && <div css={styles.title}>{step.heading}</div>}
           <div>{step.content}</div>
         </div>
 
-        {step.buttons && <div className="step-modal__footer">{step.buttons}</div>}
+        {step.buttons && (
+          <div className="step-modal__footer">{step.buttons?.({ go: navigation.go, next: navigation.next, previous: navigation.previous })}</div>
+        )}
       </div>
     );
   };
@@ -91,20 +76,19 @@ export const ModalStep: FC<StepModalProps> & StepModalStatic = ({
       cancelText={''}
       isVisible={visible}
       onCancel={onClose}
-      depsHeightRecalculation={step}
       bodyCss={styles.modalBody}
-      contentCss={{ height: '100%' }}
+      contentCss={styles.modalChild}
     >
-      {data.length ? renderContent() : 'Empty'}
+      {data.length ? _renderContent() : 'Empty'}
     </MyModal>
   );
 };
 
 ModalStep.getId = (id: StepModalProps['id']) => {
-  const onChange = navigateHandlers.get(id);
-  if (onChange) {
+  const onNavigate = navigateHandlers.get(id);
+  if (onNavigate) {
     return {
-      onChange,
+      onNavigate,
     };
   }
   throw new Error(`StepModal: ${id} not exist`);

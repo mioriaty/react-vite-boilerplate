@@ -165,7 +165,6 @@ export default function test(data: any, { seatTemplatePrefix, scale, vbScaleFact
       seatTemplatePrefix,
     }: { screenId: any; screenHeight: any; screenDistance: any; reverse: boolean; seatTemplatePrefix: any },
   ) {
-    console.log({ mappedAreas });
     const { boundaryArea } = (mappedAreas && mappedAreas[0]) || {};
     return [
       '<use',

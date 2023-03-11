@@ -1,7 +1,7 @@
 import { TodoItem } from '@app/services/Todo';
 import { createSlice } from '@reduxjs/toolkit';
 
-import { createTodo, deleteTodos, getTodos, updateTodo } from './thunks';
+import { createTodo, getTodos, updateTodo } from './thunks';
 
 interface State {
   todo: TodoItem[];

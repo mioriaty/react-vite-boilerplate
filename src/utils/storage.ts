@@ -1,4 +1,5 @@
 let checked = false;
+
 const storageAvailable = () => {
   if (!checked) {
     checked = true;
@@ -14,6 +15,7 @@ const storageAvailable = () => {
 };
 
 const memoryStorage = new Map<string, string>();
+
 const createStorage = (): Storage => {
   if (storageAvailable()) {
     return window.localStorage;

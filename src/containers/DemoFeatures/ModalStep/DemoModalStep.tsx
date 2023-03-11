@@ -1,40 +1,73 @@
 import { Button } from '@app/components/Button';
-import { ModalStep } from '@app/components/ModalStep/ModalStep';
-import { useState } from 'react';
+import { ModalStep, Step } from '@app/components/ModalStep';
+import { useEffect, useState } from 'react';
 
 export const DemoModalStep = () => {
-  const [visible1, setVisible1] = useState(false);
-  const [visible2, setVisible2] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [step, setStep] = useState<Step | undefined>(undefined);
+
+  useEffect(() => {
+    console.log(step);
+  }, [step]);
+
+  const renderForm = (
+    <div>
+      <div
+        onClick={() => {
+          ModalStep.getId('my_modal').onNavigate(({ next }) => {
+            next();
+          });
+        }}
+      >
+        move
+      </div>
+    </div>
+  );
 
   return (
     <div>
       <h2>Demo Modal Step</h2>
-      <Button onClick={() => setVisible1(true)}>Open 1</Button>
+      <Button onClick={() => setVisible(true)}>Open 1</Button>
       <ModalStep
-        visible={visible1}
-        id="modal1"
-        onClose={() => setVisible1(false)}
+        id="my_modal"
+        visible={visible}
         data={[
-          { id: '1', content: 'Step 1', heading: 'Đây là step 1' },
-          { id: '2', content: 'Step 2', heading: 'Đây là step 2' },
-          { id: '3', content: 'Step 3', heading: 'Đây là step 3' },
-          { id: '4', content: 'Step 4', heading: 'Đây là step 4' },
+          {
+            id: '1',
+            heading: 'hehe',
+            content: (
+              <div>
+                Hello step 1
+                <hr />
+                {renderForm}
+              </div>
+            ),
+            stepDescription: 'Download',
+            buttons: ({ next }) => (
+              <div>
+                <Button onClick={next}>Next</Button>
+              </div>
+            ),
+          },
+          {
+            id: '2',
+            heading: 'hoho',
+            content: <div>Step 2</div>,
+            stepDescription: 'Active on shopify',
+            buttons: ({ previous }) => (
+              <div>
+                <Button onClick={previous}>Prev</Button>
+              </div>
+            ),
+          },
         ]}
-        onChange={console.log}
-      />
-
-      <Button onClick={() => setVisible2(true)}>Open 2</Button>
-      <ModalStep
-        visible={visible2}
-        id="modal2"
-        data={[
-          { id: '1', content: 'Step 1', heading: 'Đây là step 1' },
-          { id: '2', content: 'Step 2', heading: 'Đây là step 2' },
-          { id: '3', content: 'Step 3', heading: 'Đây là step 3' },
-          { id: '4', content: 'Step 4', heading: 'Đây là step 4' },
-        ]}
-        onChange={console.log}
-        onClose={() => setVisible2(false)}
+        onChange={result => {
+          setStep(result.step);
+        }}
+        onClose={() => {
+          setVisible(false);
+          setStep(undefined);
+        }}
       />
     </div>
   );

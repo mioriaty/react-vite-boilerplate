@@ -1,37 +1,37 @@
-import { useState } from 'react';
-import { Step, UseStepParams, UseStepResponse, NavigationProps } from './types';
+import { useCallback, useState } from 'react';
 
-const error = (msg: string) => {
-  throw new Error(msg);
-};
+import { UseStepParams, UseStepResponse } from './types';
 
-const getIndexById = (arr: Step[], matchId: string) => arr.findIndex(({ id }) => id === matchId);
+const FIRST_STEP = 0;
 
-export const useStep = ({ initialStep = 0, steps }: UseStepParams): UseStepResponse => {
-  const initialStepIndex = typeof initialStep === 'number' ? initialStep : getIndexById(steps, initialStep);
-
-  const [index, setStep] = useState(initialStepIndex);
+export function useStep({ steps, initialStep = FIRST_STEP }: UseStepParams): UseStepResponse {
+  const [index, setIndex] = useState<number>(initialStep);
   const step = steps[index];
 
-  const handleSetStep = (delta = 1) => {
-    setStep((index + steps.length + delta) % steps.length);
-  };
-
-  const navigation: NavigationProps = {
-    next: () => handleSetStep(1),
-    previous: () => handleSetStep(-1),
-    go: newStep => {
-      const newStepId = getIndexById(steps, newStep);
-      if (newStepId === -1) {
-        error(`useStep: go("${newStep}") not found in steps`);
+  const inRange = useCallback(
+    (index: number | string) => {
+      if (typeof index === 'number') {
+        if (index < FIRST_STEP) {
+          return FIRST_STEP;
+        }
+        if (index >= steps.length) {
+          return steps.length - 1;
+        }
+        return index;
       }
-      setStep(newStepId);
+
+      return steps.findIndex(step => step.id === index) || FIRST_STEP;
     },
-  };
+    [steps],
+  );
+
+  const go = (nextStep: number | string) => setIndex(inRange(nextStep));
+  const next = () => go(index + 1);
+  const prev = () => go(index - 1);
 
   return {
     index,
+    navigation: { next, go, previous: prev },
     step,
-    navigation,
   };
-};
+}
