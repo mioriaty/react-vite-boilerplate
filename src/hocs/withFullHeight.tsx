@@ -7,5 +7,9 @@ export const withFullHeight = <P,>(Component: ComponentType<P>) => {
     return <Component {...(props as any)} ref={ref}></Component>;
   };
 
+  const wrappedComponentName = WithFullHeight.displayName || Component.name || 'Component';
+
+  WithFullHeight.displayName = `withFullHeight(${wrappedComponentName})`;
+
   return WithFullHeight;
 };
