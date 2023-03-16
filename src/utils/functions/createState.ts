@@ -1,4 +1,4 @@
-import { storage } from '../storage';
+import { storage } from '@app/utils/storage';
 
 type Listener<S = any> = (state: S) => void;
 type CompareFunc<S = any> = (prevState: S, state: S) => boolean;
