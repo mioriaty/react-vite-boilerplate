@@ -21,6 +21,7 @@ export default defineConfig({
       routes: path.resolve(__dirname, './src/routes/'),
       httpHandler: path.resolve(__dirname, './src/httpHandler/'),
       services: path.resolve(__dirname, './src/services/'),
+      providers: path.resolve(__dirname, './src/providers/'),
     },
   },
   build: {
