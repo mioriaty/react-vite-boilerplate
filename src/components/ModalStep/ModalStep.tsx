@@ -1,7 +1,7 @@
+import { MyModal } from '@app/components/Modal';
 import { FC, useEffect } from 'react';
 import { useDeepCompareEffect } from 'react-use';
 
-import { MyModal } from '../Modal/Modal';
 import * as styles from './styles';
 import { Navigate, StepModalProps, StepModalStatic } from './types';
 import { useStep } from './useStep';
