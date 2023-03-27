@@ -1,5 +1,5 @@
 import { Button } from '@app/components/Button';
-import { Loader } from '@app/components/Loader';
+import { Spinner } from '@app/components/Spinner';
 import { useState } from 'react';
 
 import data from './data';
@@ -11,7 +11,7 @@ export const WithUseWorker = () => {
 
   const renderContent = () => {
     return isPending ? (
-      <Loader />
+      <Spinner />
     ) : isSuccess && seatLayout ? (
       <div dangerouslySetInnerHTML={{ __html: seatLayout }} />
     ) : (

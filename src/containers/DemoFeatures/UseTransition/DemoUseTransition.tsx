@@ -1,4 +1,4 @@
-import { Loader } from '@app/components/Loader';
+import { Spinner } from '@app/components/Spinner';
 import { Tabs } from '@app/components/Tabs';
 import { TextInput } from '@app/components/TextInput';
 import { Dispatch, useEffect, useState, useTransition } from 'react';
@@ -73,7 +73,7 @@ const WithUseTransition = () => {
 
   return (
     <>
-      {pending && <Loader />}
+      {pending && <Spinner />}
       <div className="input">
         <TextInput onValueChange={onInputChange} />
       </div>

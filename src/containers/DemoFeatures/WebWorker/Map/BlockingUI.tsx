@@ -1,5 +1,5 @@
 import { Button } from '@app/components/Button';
-import { Loader } from '@app/components/Loader';
+import { Spinner } from '@app/components/Spinner';
 import { useEffect, useState } from 'react';
 
 import data from './data';
@@ -20,7 +20,7 @@ export const BlockingUI = () => {
   });
 
   const renderData = () => {
-    return seatLayout ? <div dangerouslySetInnerHTML={{ __html: seatLayout }} /> : <Loader />;
+    return seatLayout ? <div dangerouslySetInnerHTML={{ __html: seatLayout }} /> : <Spinner />;
   };
 
   return (

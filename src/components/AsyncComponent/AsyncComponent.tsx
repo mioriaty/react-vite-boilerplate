@@ -1,6 +1,5 @@
+import { Spinner } from '@app/components/Spinner';
 import { FC, ReactNode } from 'react';
-
-import { Loader } from '../Loader';
 
 export interface AsyncComponentProps {
   status: Status;
@@ -14,7 +13,7 @@ export interface AsyncComponentProps {
 const RequestComponent: FC = () => {
   return (
     <div css={{ padding: '80px 10px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <Loader />
+      <Spinner size={30} />
     </div>
   );
 };

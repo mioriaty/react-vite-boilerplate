@@ -1,4 +1,5 @@
 import { Button } from '@app/components/Button';
+import { Spinner } from '@app/components/Spinner';
 import { http } from '@app/httpHandler';
 import { storage } from '@app/utils/storage';
 import { AxiosResponse } from 'axios';
@@ -63,6 +64,7 @@ export const HomePage: FC = () => {
 
   return (
     <div css={{ padding: '10px' }}>
+      <Spinner />
       <div css={{ display: 'flex', columnGap: '10px' }}>
         <Button size="extra-small" onClick={handleLogin}>
           Login
