@@ -9,21 +9,13 @@ export interface SpinnerProps {
    */
   color?: keyof Theme['colors'];
   /**
-   * The size of the spinner
+   * Custom size of the spinner. If use thickness, props size will be removed
    * @default 15
-   * @example
-   * ```jsx
-   * <Spinner size={4} />
-   * ```
    */
-  size?: number;
+  thickness?: number;
   /**
    * The speed of the spinner.
    * @default 0.45
-   * @example
-   * ```jsx
-   * <Spinner speed={0.2} />
-   * ```
    */
   speed?: number;
   /**
@@ -36,12 +28,17 @@ export interface SpinnerProps {
    * custom css Spinner
    */
   css?: Interpolation<Theme>;
+  /**
+   * size of the spinner
+   * @default size="small"
+   */
+  size?: Size;
 }
 
-export const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(({ size = 15, speed = 0.45, color = 'primary', label, css }, ref) => {
+export const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(({ thickness, speed = 0.45, color = 'primary', label, css, size = 'small' }, ref) => {
   return (
     <>
-      <div ref={ref} css={[styles.spinnerStyle({ colorName: color, size, speed }), css]} />
+      <div ref={ref} css={[styles.spinnerStyle({ colorName: color, thickness, speed, size }), css]} />
       {label && <div>{label}</div>}
     </>
   );

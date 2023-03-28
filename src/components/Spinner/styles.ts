@@ -21,8 +21,15 @@ export const innerChild = css`
   position: absolute;
 `;
 
+const mappingSize: Record<Size, number> = {
+  'extra-small': 10,
+  small: 15,
+  medium: 20,
+  large: 25,
+};
+
 export const spinnerStyle =
-  ({ colorName, speed, size }: { size: number; speed: number; colorName: keyof Theme['colors'] }) =>
+  ({ colorName, speed, thickness, size }: { speed: number; colorName: keyof Theme['colors']; size: Size; thickness?: number }) =>
   ({ colors }: Theme) =>
     css({
       display: 'inline-block',
@@ -36,6 +43,6 @@ export const spinnerStyle =
       borderLeftWidth: '2px',
       borderBottomColor: 'transparent',
       borderLeftColor: 'transparent',
-      width: `${size}px`,
-      height: `${size}px`,
+      width: `${thickness ? thickness : mappingSize[size]}px`,
+      height: `${thickness ? thickness : mappingSize[size]}px`,
     });

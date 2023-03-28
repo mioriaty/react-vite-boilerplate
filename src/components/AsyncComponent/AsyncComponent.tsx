@@ -13,7 +13,7 @@ export interface AsyncComponentProps {
 const RequestComponent: FC = () => {
   return (
     <div css={{ padding: '80px 10px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <Spinner size={30} />
+      <Spinner size="medium" />
     </div>
   );
 };
