@@ -17,7 +17,11 @@ export const ModalStep: FC<StepModalProps> & StepModalStatic = ({
   onClose,
   onChange,
 }) => {
-  const { navigation, step, index } = useStep({ steps: data, initialStep });
+  const { navigation, step, index, completed } = useStep({ steps: data, initialStep });
+
+  useEffect(() => {
+    console.log(completed);
+  }, [completed]);
 
   useEffect(() => {
     navigateHandlers.set(id, callback => {
