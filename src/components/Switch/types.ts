@@ -21,11 +21,11 @@ export interface SwitchProps {
   /** Background color khi chưa active */
   inactiveColor?: keyof Theme['colors'];
   containerCss?: Interpolation<Theme>;
+  radius?: number;
+  className?: string;
   /** sự kiện onChange click vào component và nhận được event */
   onChange?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   /** sự kiện onChange click vào component và nhận được value */
   onValueChange?: (value: boolean) => void;
   ExtraNode?: (value: boolean) => ReactNode;
-  radius?: number;
-  className?: string;
 }

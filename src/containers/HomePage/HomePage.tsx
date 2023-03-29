@@ -1,6 +1,7 @@
 import Checkbox from '@app/components/Checkbox';
 import { Spinner } from '@app/components/Spinner';
 import Switch from '@app/components/Switch';
+import { Tooltip } from '@app/components/Tooltip';
 import { FC } from 'react';
 
 import { DemoAutocomplete, DemoModal, DemoModalStep, DemoPostmessage, DemoTodo, DemoUseTransition, DemoWebWorker } from '../DemoFeatures';
@@ -8,7 +9,9 @@ import { DemoAutocomplete, DemoModal, DemoModalStep, DemoPostmessage, DemoTodo, 
 export const HomePage: FC = () => {
   return (
     <div css={{ padding: '10px' }}>
-      <Switch onValueChange={console.log} />
+      <Tooltip placement="bottom" portal text="heheeh">
+        <Switch onValueChange={console.log} />
+      </Tooltip>
       <hr />
       <hr />
       <Checkbox>Label</Checkbox>
