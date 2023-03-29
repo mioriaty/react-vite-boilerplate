@@ -26,6 +26,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.1",
     "react-use": "^17.4.0",
+    "react-virtualized": "^9.22.3",
     "redux-logger": "^3.0.6",
     "socket.io-client": "^4.6.1",
     "uuid": "^9.0.0"
@@ -41,6 +42,7 @@
     "@types/react-custom-scrollbars": "^4.0.10",
     "@types/react-dom": "^18.0.10",
     "@types/react-redux": "^7.1.25",
+    "@types/react-virtualized": "9.21.21",
     "@types/redux-logger": "^3.0.9",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
@@ -62,5 +64,9 @@
     "vite-tsconfig-paths": "^4.0.5",
     "vitest": "^0.29.3"
   },
-  "pre-commit": "lint"
+  "pre-commit": "lint",
+  "resolutions": {
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10"
+  }
 }
