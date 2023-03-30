@@ -1,8 +1,8 @@
+import { Button } from '@app/components/Button';
 import { createPortal } from '@app/utils/functions/createPortal';
 import { Interpolation, Theme } from '@emotion/react';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 
-import { Button } from '../Button';
 import { ScrollBar } from '../Scrollbar/Scrollbar';
 import ModalHeader from './ModalHeader';
 import * as styles from './styles';

@@ -1,68 +1,73 @@
-import { Interpolation, Theme } from '@emotion/react';
-import { ButtonHTMLAttributes, DOMAttributes, FC, forwardRef, ReactNode, Ref } from 'react';
+import { Spinner } from '@app/components/Spinner';
+import { forwardRef, ForwardRefRenderFunction, Ref } from 'react';
 
 import * as styles from './styles';
+import { ButtonProps } from './types';
 
-export interface ButtonProps {
-  block?: boolean;
-  size?: Size;
-  children: ReactNode;
-  href?: string;
-  target?: '_blank' | '_self' | '_parent' | '_top';
-  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
-  disabled?: boolean;
-  loading?: boolean;
-  css?: Interpolation<Theme>;
-  backgroundColor?: keyof Theme['colors'];
-  color?: keyof Theme['colors'];
-  onClick?: DOMAttributes<HTMLElement>['onClick'];
-}
+const getLoadingSize = (size: Size) => {
+  switch (size) {
+    case 'large':
+      return 12;
+    case 'medium':
+      return 10;
+    case 'small':
+      return 8;
+    case 'extra-small':
+      return 7;
+  }
+};
 
-export const Button: FC<ButtonProps> = forwardRef<HTMLElement, ButtonProps>(
-  (
-    {
-      children,
-      block = false,
-      css,
-      size = 'small',
-      href,
-      target = '_self',
-      type = 'button',
-      loading = false,
-      disabled = false,
-      backgroundColor = 'primary',
-      color = 'light',
-      onClick,
-      ...rest
-    },
-    ref,
-  ) => {
-    const props = {
-      ...rest,
-      css: [styles.container({ size, backgroundColor, color }), styles.block(block), styles.disabled(disabled), styles.fontSize(13), css],
-      ...(disabled ? {} : { onClick }),
-    };
-
-    const renderChildren = (
-      <>
-        {loading ? <div css={styles.loading} /> : null}
-        <span css={styles.text}>{children}</span>
-      </>
-    );
-
-    if (href) {
-      return (
-        <a ref={ref as Ref<HTMLAnchorElement>} href={href} rel="noopener noreferrer" target={target} {...props}>
-          {renderChildren}
-        </a>
-      );
-    }
-    return (
-      <button ref={ref as Ref<HTMLButtonElement>} type={type} {...props}>
-        {renderChildren}
-      </button>
-    );
+const ButtonInternal: ForwardRefRenderFunction<HTMLElement, ButtonProps> = (
+  {
+    href,
+    children,
+    target = 'self',
+    size = 'medium',
+    block = false,
+    disabled = false,
+    loading = false,
+    type = 'button',
+    css,
+    Icon,
+    backgroundColor = 'primary',
+    color = 'light',
+    onClick,
+    ...rest
   },
-);
+  ref,
+) => {
+  const loadingSize = getLoadingSize(size);
+  const props = {
+    ...rest,
+    css: [styles.container({ size, backgroundColor, color }), styles.block(block), styles.disabled(disabled), css],
+    ...(disabled ? {} : { onClick }),
+  };
 
-Button.displayName = 'Button';
+  const renderChildren = (
+    <>
+      {loading ? (
+        <div css={styles.loading}>
+          <Spinner color="light" thickness={loadingSize} />
+        </div>
+      ) : Icon ? (
+        <div css={styles.loading}>{Icon}</div>
+      ) : null}
+      <span css={styles.text}>{children}</span>
+    </>
+  );
+
+  if (href) {
+    return (
+      <a ref={ref as Ref<HTMLAnchorElement>} href={href} rel="noopener noreferrer" target={target} {...props}>
+        {renderChildren}
+      </a>
+    );
+  }
+  return (
+    <button ref={ref as Ref<HTMLButtonElement>} type={type} {...props}>
+      {renderChildren}
+    </button>
+  );
+};
+
+export const Button = forwardRef(ButtonInternal);

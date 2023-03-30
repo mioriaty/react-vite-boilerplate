@@ -1,5 +1,5 @@
-import { Interpolation, Theme } from '@emotion/react';
-import { forwardRef } from 'react';
+import { Theme } from '@emotion/react';
+import { forwardRef, ForwardRefRenderFunction } from 'react';
 
 import * as styles from './styles';
 
@@ -25,9 +25,9 @@ export interface SpinnerProps {
    */
   label?: string;
   /**
-   * custom css Spinner
+   * className
    */
-  css?: Interpolation<Theme>;
+  className?: string;
   /**
    * size of the spinner
    * @default size="small"
@@ -35,13 +35,15 @@ export interface SpinnerProps {
   size?: Size;
 }
 
-export const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(({ thickness, speed = 0.45, color = 'primary', label, css, size = 'small' }, ref) => {
+const SpinnerInternal: ForwardRefRenderFunction<HTMLDivElement, SpinnerProps> = (
+  { thickness, speed = 0.45, color = 'primary', label, className, size = 'small' },
+  ref,
+) => {
   return (
     <>
-      <div ref={ref} css={[styles.spinnerStyle({ colorName: color, thickness, speed, size }), css]} />
+      <div className={className} ref={ref} css={styles.spinnerStyle({ colorName: color, thickness, speed, size })} />
       {label && <div>{label}</div>}
     </>
   );
-});
-
-Spinner.displayName = 'Spinner';
+};
+export const Spinner = forwardRef(SpinnerInternal);

@@ -31,18 +31,18 @@ const mappingSize: Record<Size, number> = {
 export const spinnerStyle =
   ({ colorName, speed, thickness, size }: { speed: number; colorName: keyof Theme['colors']; size: Size; thickness?: number }) =>
   ({ colors }: Theme) =>
-    css({
-      display: 'inline-block',
-      borderRadius: '99999px',
-      animation: `${spin} ${speed}s linear infinite`,
-      borderTop: `2px solid ${colors[colorName]}`,
-      borderRight: `2px solid ${colors[colorName]}`,
-      borderBottomStyle: 'solid',
-      borderLeftStyle: 'solid',
-      borderBottomWidth: '2px',
-      borderLeftWidth: '2px',
-      borderBottomColor: 'transparent',
-      borderLeftColor: 'transparent',
-      width: `${thickness ? thickness : mappingSize[size]}px`,
-      height: `${thickness ? thickness : mappingSize[size]}px`,
-    });
+    css`
+      display: inline-block;
+      border-radius: 99999px;
+      animation: ${spin} ${speed}s linear infinite;
+      border-top: 2px solid ${colors[colorName]};
+      border-right: 2px solid ${colors[colorName]};
+      border-bottom-style: solid;
+      border-left-style: solid;
+      border-bottom-width: 2px;
+      border-left-width: 2px;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+      width: ${thickness ? thickness : mappingSize[size]}px;
+      height: ${thickness ? thickness : mappingSize[size]}px;
+    `;
