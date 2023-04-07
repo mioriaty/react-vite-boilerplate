@@ -1,5 +1,5 @@
 import { Interpolation, Theme } from '@emotion/react';
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
 import * as styles from './styles';
 

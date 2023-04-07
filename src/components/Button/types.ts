@@ -1,4 +1,3 @@
-import { TooltipProps } from '@app/components/Tooltip';
 import { Interpolation, Theme } from '@emotion/react';
 import { ButtonHTMLAttributes, DOMAttributes, ReactNode } from 'react';
 
