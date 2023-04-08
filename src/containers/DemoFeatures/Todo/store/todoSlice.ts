@@ -30,8 +30,12 @@ export const todoSlice = createSlice({
       state.getStatus = 'success';
       state.todo = action.payload;
     });
-    builder.addCase(getTodos.rejected, state => {
-      state.getStatus = 'failure';
+    builder.addCase(getTodos.rejected, (state, action) => {
+      if (action.meta.aborted) {
+        state.getStatus = 'idle';
+      } else {
+        state.getStatus = 'failure';
+      }
     });
     builder.addCase(createTodo.pending, state => {
       state.createStatus = 'loading';
@@ -60,5 +64,7 @@ export const todoSlice = createSlice({
     });
   },
 });
+
+// export const {} = todoSlice.actions;
 
 export const todoSelector = (state: AppState) => state.demos.todo;

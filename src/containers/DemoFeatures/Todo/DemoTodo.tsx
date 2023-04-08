@@ -1,25 +1,36 @@
 import { AsyncComponent } from '@app/components/AsyncComponent';
-import { TextInput } from '@app/components/TextInput';
-import { withDebounce } from '@app/hocs/withDebounce';
+import { Button } from '@app/components/Button';
 import { useAppDispatch, useAppSelector } from '@app/store';
-import { useEffect } from 'react';
+import { useRef } from 'react';
 
 import { getTodos, todoSelector } from './store';
-
-const _InputWithDebounce = withDebounce({ WrappedComponent: TextInput, propValue: 'value', propOnChange: 'onValueChange' });
 
 export const DemoTodo = () => {
   const { todo, getStatus } = useAppSelector(todoSelector);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getTodos());
-  }, [dispatch]);
+  const promise = useRef<string | null>(null);
 
   return (
-    <div>
+    <div css={{ width: '600px' }}>
       <h2>Demo todo</h2>
-      <AsyncComponent status={getStatus} Success={JSON.stringify(todo, null, 2)} />
+      <Button
+        onClick={() => {
+          dispatch(getTodos({}));
+          promise.current = 'REQUESTING';
+        }}
+        css={{ marginRight: '8px' }}
+      >
+        Get todos
+      </Button>
+      <Button>Cancel get todos</Button>
+      <AsyncComponent
+        status={getStatus}
+        Success={
+          <div>
+            <pre>{JSON.stringify(todo, null, 2)}</pre>
+          </div>
+        }
+      />
     </div>
   );
 };

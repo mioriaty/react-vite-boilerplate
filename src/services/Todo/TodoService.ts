@@ -10,13 +10,43 @@ export const initState: TodoItem[] = [
     active: false,
     content: 'todo 1',
   },
+  {
+    id: v4(),
+    active: false,
+    content: 'todo 2',
+  },
+  {
+    id: v4(),
+    active: false,
+    content: 'todo 3',
+  },
+  {
+    id: v4(),
+    active: false,
+    content: 'todo 4',
+  },
+  {
+    id: v4(),
+    active: false,
+    content: 'todo 5',
+  },
+  {
+    id: v4(),
+    active: false,
+    content: 'todo 6',
+  },
+  {
+    id: v4(),
+    active: false,
+    content: 'todo 7',
+  },
 ];
 
 const todoState = createState<TodoItem[]>(initState, { stateName: '__TODO__', useLocalStorage: true });
 
 export class TodoService {
   async getTodos() {
-    await delay(300);
+    await delay(1000);
     return todoState.getState();
   }
 

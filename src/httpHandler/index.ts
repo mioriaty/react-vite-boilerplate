@@ -1,4 +1,5 @@
 import { storage } from '@app/utils/storage';
+import { CANCEL } from 'redux-saga';
 
 import ConfigureAxios from './ConfigureAxios';
 
@@ -54,4 +55,4 @@ axiosConfig.refreshToken<RefreshTokenResponse, AxiosData>({
   },
 });
 
-export const http = axiosConfig.create('');
+export const http = axiosConfig.create(CANCEL);

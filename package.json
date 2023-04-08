@@ -28,6 +28,7 @@
     "react-use": "^17.4.0",
     "react-virtualized": "^9.22.3",
     "redux-logger": "^3.0.6",
+    "redux-saga": "^1.2.3",
     "socket.io-client": "^4.6.1",
     "uuid": "^9.0.0"
   },

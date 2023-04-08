@@ -1,7 +1,7 @@
 import { TodoItem, todoService } from '@app/services/Todo';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const getTodos = createAsyncThunk('@todo/getTodos', async () => {
+export const getTodos = createAsyncThunk('@todo/getTodos', async ({ search }: { search?: string }) => {
   const response = await todoService.getTodos();
   return response;
 });

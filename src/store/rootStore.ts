@@ -5,14 +5,16 @@ import { chatSlice } from '@app/containers/SocketConntector';
 import { AnyAction, combineReducers, configureStore, getDefaultMiddleware, ThunkDispatch } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import logger from 'redux-logger';
+import createSagaMiddleware from 'redux-saga';
 
-const _isDev = import.meta.env.NODE_ENV === 'development';
+import rootSaga from './rootSaga';
 
-const _composeEnhancers =
-  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 25 });
+const isDev = process.env.NODE_ENV === 'development';
+
+const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
-  middleware: [...getDefaultMiddleware(), logger],
+  middleware: [...getDefaultMiddleware(), logger, sagaMiddleware],
   reducer: {
     home: sliceHomePage.reducer,
     error: sliceError.reducer,
@@ -23,7 +25,10 @@ export const store = configureStore({
       todo: todoSlice.reducer,
     }),
   },
+  devTools: isDev,
 });
+
+sagaMiddleware.run(rootSaga);
 
 export type Reducers = ReturnType<typeof store.getState>;
 
