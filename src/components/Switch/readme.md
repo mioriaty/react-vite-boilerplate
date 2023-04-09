@@ -1,14 +1,17 @@
 ## Import component
-```jsx 
+
+```jsx
 import Switch from '@app/components/Switch';
 ```
 
 ## Usage
+
 ```jsx
 <Switch />
 ```
 
 ## Props
+
 <table>
   <tr>
     <th>Name</th>
@@ -65,6 +68,5 @@ import Switch from '@app/components/Switch';
     <td>Size('extra-small' | 'small' | 'medium' | 'large')</td>
     <td>medium</td>
   </tr>
-
 
 </table>
