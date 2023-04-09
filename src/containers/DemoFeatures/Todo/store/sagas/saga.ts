@@ -1,3 +1,1 @@
-import { watchGetTodos } from './watchGetTodos';
-
-export const sagaTodos = [watchGetTodos];
+export const sagaTodos = [];
