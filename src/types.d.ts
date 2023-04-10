@@ -1,7 +1,7 @@
 import { Reducers } from './store/rootStore';
 
 declare global {
-  declare type Status = 'idle' | 'loading' | 'success' | 'failure';
+  declare type Status = 'idle' | 'loading' | 'succeeded' | 'failed';
 
   declare type Size = 'extra-small' | 'small' | 'medium' | 'large';
 

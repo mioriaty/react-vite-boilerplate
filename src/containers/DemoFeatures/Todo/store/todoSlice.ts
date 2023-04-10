@@ -23,45 +23,46 @@ export const todoSlice = createSlice({
   name: '@todo',
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(getTodos.pending, state => {
-      state.getStatus = 'loading';
-    });
-    builder.addCase(getTodos.fulfilled, (state, action) => {
-      state.getStatus = 'success';
-      state.todo = action.payload;
-    });
-    builder.addCase(getTodos.rejected, (state, action) => {
-      if (action.meta.aborted) {
-        state.getStatus = 'idle';
-      } else {
-        state.getStatus = 'failure';
-      }
-    });
-    builder.addCase(createTodo.pending, state => {
-      state.createStatus = 'loading';
-    });
-    builder.addCase(createTodo.fulfilled, (state, action) => {
-      state.createStatus = 'success';
-      state.todo = state.todo.concat(action.payload);
-    });
-    builder.addCase(createTodo.rejected, state => {
-      state.createStatus = 'failure';
-    });
-    builder.addCase(updateTodo.pending, (state, action) => {
-      state.updateQueueStatus = state.updateQueueStatus.concat(action.meta.arg.id);
-    });
-    builder.addCase(updateTodo.fulfilled, (state, action) => {
-      state.updateQueueStatus = state.updateQueueStatus.filter(id => id !== action.meta.arg.id);
-      state.todo = state.todo.map(item => {
-        if (item.id === action.payload.id) {
-          return action.payload;
+    builder
+      .addCase(getTodos.pending, state => {
+        state.getStatus = 'loading';
+      })
+      .addCase(getTodos.fulfilled, (state, action) => {
+        state.getStatus = 'succeeded';
+        state.todo = action.payload;
+      })
+      .addCase(getTodos.rejected, (state, action) => {
+        if (action.meta.aborted) {
+          state.getStatus = 'idle';
+        } else {
+          state.getStatus = 'failed';
         }
-        return item;
+      })
+      .addCase(createTodo.pending, state => {
+        state.createStatus = 'loading';
+      })
+      .addCase(createTodo.fulfilled, (state, action) => {
+        state.createStatus = 'succeeded';
+        state.todo = state.todo.concat(action.payload);
+      })
+      .addCase(createTodo.rejected, state => {
+        state.createStatus = 'failed';
+      })
+      .addCase(updateTodo.pending, (state, action) => {
+        state.updateQueueStatus = state.updateQueueStatus.concat(action.meta.arg.id);
+      })
+      .addCase(updateTodo.fulfilled, (state, action) => {
+        state.updateQueueStatus = state.updateQueueStatus.filter(id => id !== action.meta.arg.id);
+        state.todo = state.todo.map(item => {
+          if (item.id === action.payload.id) {
+            return action.payload;
+          }
+          return item;
+        });
+      })
+      .addCase(updateTodo.rejected, (state, action) => {
+        state.updateQueueStatus = state.updateQueueStatus.filter(id => id !== action.meta.arg.id);
       });
-    });
-    builder.addCase(updateTodo.rejected, (state, action) => {
-      state.updateQueueStatus = state.updateQueueStatus.filter(id => id !== action.meta.arg.id);
-    });
   },
 });
 

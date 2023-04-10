@@ -6,9 +6,9 @@ import { getTodos } from '../thunks';
 function* fetchTodos(_: ReturnType<typeof getTodos.pending>) {
   try {
     const response: SagaReturnType<typeof todoService.getTodos> = yield retry(3, 1000, todoService.getTodos);
-    console.log(response);
-
-    // yield put(getTodos.fulfilled(response, '', { search: '' }));
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    yield put(getTodos.fulfilled(response));
   } catch (error) {
     // yield put(getTodos.rejected);
   }

@@ -37,8 +37,8 @@ export const AsyncComponent: FC<AsyncComponentProps> = ({
   const renderMapping: Record<Status, ReactNode> = {
     idle: null,
     loading: Request,
-    success: isEmpty ? Empty : Success,
-    failure: Failure,
+    succeeded: isEmpty ? Empty : Success,
+    failed: Failure,
   };
 
   return <>{renderMapping[status]}</>;
