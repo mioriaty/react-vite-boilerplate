@@ -1,23 +1,33 @@
 import { sliceHomePage } from '@app/containers/HomePage/store/sliceHomePage';
 import { rootReducer } from '@app/store/rootReducer';
-import { AnyAction, configureStore, ThunkDispatch } from '@reduxjs/toolkit';
+import { AnyAction, combineReducers, configureStore, Middleware, ThunkDispatch } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import logger from 'redux-logger';
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import createSagaMiddleware from 'redux-saga';
 
 import rootSaga from './rootSaga';
 
-const isDev = process.env.NODE_ENV === 'dev';
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: [],
+};
+
+const reducers = persistReducer(persistConfig, combineReducers({ ...rootReducer }));
 
 const sagaMiddleware = createSagaMiddleware();
+const middleware: Middleware[] = [sagaMiddleware, logger];
 
 export const store = configureStore({
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger, sagaMiddleware),
-  reducer: rootReducer,
-  devTools: isDev,
+  middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false, thunk: false }).concat(middleware),
+  reducer: reducers,
+  devTools: true,
 });
 
 sagaMiddleware.run(rootSaga);
+export const persistor = persistStore(store as any);
 
 export type Reducers = ReturnType<typeof store.getState>;
 

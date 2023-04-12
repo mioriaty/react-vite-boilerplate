@@ -50,11 +50,12 @@ export class TodoService {
     return todoState.getState();
   }
 
-  async createTodo({ todo }: { todo: Omit<TodoItem, 'id'> }) {
+  async createTodo({ todo: { active, content } }: { todo: Omit<TodoItem, 'id'> }) {
     await delay(300);
     const newTodo: TodoItem = {
       id: v4(),
-      ...todo,
+      active,
+      content,
     };
     todoState.setState(prevState => [...prevState, newTodo]);
     return newTodo;

@@ -2,7 +2,7 @@ import { AsyncComponent } from '@app/components/AsyncComponent';
 import { Button } from '@app/components/Button';
 import { useAppDispatch, useAppSelector } from '@app/store';
 
-import { getTodos, todoSelector } from './store';
+import { todoActions, todoSelector } from './store';
 
 export const DemoTodo = () => {
   const { todo, getStatus } = useAppSelector(todoSelector);
@@ -13,7 +13,7 @@ export const DemoTodo = () => {
       <h2>Demo todo</h2>
       <Button
         onClick={() => {
-          dispatch(getTodos({}));
+          dispatch(todoActions.getTodos({ search: 'heheh' }));
         }}
         css={{ marginRight: '8px' }}
       >

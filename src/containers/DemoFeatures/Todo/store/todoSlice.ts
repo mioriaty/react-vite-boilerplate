@@ -1,14 +1,12 @@
 import { TodoItem } from '@app/services/Todo';
-import { createSlice } from '@reduxjs/toolkit';
-
-import { createTodo, getTodos, updateTodo } from './thunks';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface State {
   todo: TodoItem[];
 
   getStatus: Status;
   createStatus: Status;
-  updateQueueStatus: string[];
+  updateStatus: Status;
   deleteQueueStatus: string[];
 }
 
@@ -17,55 +15,61 @@ export const todoSlice = createSlice({
     todo: [],
     getStatus: 'idle',
     createStatus: 'idle',
+    updateStatus: 'idle',
     deleteQueueStatus: [],
-    updateQueueStatus: [],
   } as State,
   name: '@todo',
-  reducers: {},
-  extraReducers: builder => {
-    builder
-      .addCase(getTodos.pending, state => {
-        state.getStatus = 'loading';
-      })
-      .addCase(getTodos.fulfilled, (state, action) => {
-        state.getStatus = 'succeeded';
-        state.todo = action.payload;
-      })
-      .addCase(getTodos.rejected, (state, action) => {
-        if (action.meta.aborted) {
-          state.getStatus = 'idle';
-        } else {
-          state.getStatus = 'failed';
+  reducers: {
+    // get all
+    getTodos: (state, _action: PayloadAction<{ search: string }>) => {
+      state.getStatus = 'loading';
+    },
+    getTodosSucceed: (state, action: PayloadAction<TodoItem[]>) => {
+      state.getStatus = 'succeeded';
+      state.todo = action.payload;
+    },
+    getTodosFailed: state => {
+      state.getStatus = 'failed';
+    },
+    // create
+    createTodo: (state, _action: PayloadAction<Omit<TodoItem, 'id'>>) => {
+      state.createStatus = 'loading';
+    },
+    createTodoSucceed: (state, action: PayloadAction<TodoItem>) => {
+      state.createStatus = 'succeeded';
+      state.todo = state.todo.concat(action.payload);
+    },
+    createTodoFailed: state => {
+      state.createStatus = 'failed';
+    },
+    // update
+    updateTodo: state => {
+      state.updateStatus = 'loading';
+    },
+    updateTodoSucceed: (state, action: PayloadAction<TodoItem>) => {
+      state.updateStatus = 'succeeded';
+      state.todo = state.todo.map(item => {
+        if (item.id === action.payload.id) {
+          return action.payload;
         }
-      })
-      .addCase(createTodo.pending, state => {
-        state.createStatus = 'loading';
-      })
-      .addCase(createTodo.fulfilled, (state, action) => {
-        state.createStatus = 'succeeded';
-        state.todo = state.todo.concat(action.payload);
-      })
-      .addCase(createTodo.rejected, state => {
-        state.createStatus = 'failed';
-      })
-      .addCase(updateTodo.pending, (state, action) => {
-        state.updateQueueStatus = state.updateQueueStatus.concat(action.meta.arg.id);
-      })
-      .addCase(updateTodo.fulfilled, (state, action) => {
-        state.updateQueueStatus = state.updateQueueStatus.filter(id => id !== action.meta.arg.id);
-        state.todo = state.todo.map(item => {
-          if (item.id === action.payload.id) {
-            return action.payload;
-          }
-          return item;
-        });
-      })
-      .addCase(updateTodo.rejected, (state, action) => {
-        state.updateQueueStatus = state.updateQueueStatus.filter(id => id !== action.meta.arg.id);
+        return item;
       });
+    },
+    updateTodoFailed: state => {
+      state.updateStatus = 'failed';
+    },
+    // delete
+    deleteTodo: (state, action: PayloadAction<{ id: string }>) => {
+      state.deleteQueueStatus = state.deleteQueueStatus.concat(action.payload.id);
+    },
+    deleteTodoSucceed: (state, action: PayloadAction<{ id: string }>) => {
+      state.deleteQueueStatus = state.deleteQueueStatus.filter(id => id !== action.payload.id);
+      state.todo = state.todo.filter(item => item.id !== action.payload.id);
+    },
+    deleteTodoFailed: (state, action: PayloadAction<{ id: string }>) => {
+      state.deleteQueueStatus = state.deleteQueueStatus.filter(id => id !== action.payload.id);
+    },
   },
 });
-
-// export const {} = todoSlice.actions;
 
 export const todoSelector = (state: AppState) => state.demos.todo;

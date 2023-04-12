@@ -1,19 +1,16 @@
+import { todoActions } from '@app/containers/DemoFeatures/Todo/store/actions';
 import { todoService } from '@app/services/Todo';
 import { put, retry, SagaReturnType, takeLatest } from 'redux-saga/effects';
 
-import { getTodos } from '../thunks';
-
-function* fetchTodos(_: ReturnType<typeof getTodos.pending>) {
+function* fetchTodos(_: ReturnType<typeof todoActions.getTodos>) {
   try {
     const response: SagaReturnType<typeof todoService.getTodos> = yield retry(3, 1000, todoService.getTodos);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    yield put(getTodos.fulfilled(response));
+    yield put(todoActions.getTodosSucceed(response));
   } catch (error) {
-    // yield put(getTodos.rejected);
+    yield put(todoActions.getTodosFailed());
   }
 }
 
 export function* watchGetTodos() {
-  yield takeLatest(getTodos.pending.type, fetchTodos);
+  yield takeLatest(todoActions.getTodos.type, fetchTodos);
 }
