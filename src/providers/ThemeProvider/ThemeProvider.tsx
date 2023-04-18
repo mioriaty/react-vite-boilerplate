@@ -20,9 +20,9 @@ export const defaultAppSettings: Theme = {
     dark: '#0f0f36',
   },
   fonts: {
-    primary: 'Roboto, sans-serif',
-    secondary: 'Lexend Deca, sans-serif',
-    tertiary: 'Poppins, sans-serif',
+    primary: 'Lexend Deca, sans-serif',
+    secondary: 'Poppins, sans-serif',
+    tertiary: 'Roboto, sans-serif',
   },
 };
 

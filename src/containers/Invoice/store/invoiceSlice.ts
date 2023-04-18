@@ -47,7 +47,7 @@ export const invoiceSlice = createSlice({
     setInvoiceSettings: (state, action: PayloadAction<Partial<Invoice>>) => {
       return {
         ...state,
-        ...action,
+        ...action.payload,
       };
     },
   },
