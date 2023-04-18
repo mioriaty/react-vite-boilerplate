@@ -2,13 +2,11 @@
 import react from '@vitejs/plugin-react';
 import * as path from 'path';
 import { defineConfig } from 'vite';
-import { chunkSplitPlugin } from 'vite-plugin-chunk-split';
-// import eslint from 'vite-plugin-eslint';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), tsconfigPaths(), chunkSplitPlugin()],
+  plugins: [react(), tsconfigPaths()],
   resolve: {
     alias: {
       '@app': path.resolve(__dirname, './src/'),
@@ -22,10 +20,8 @@ export default defineConfig({
       httpHandler: path.resolve(__dirname, './src/httpHandler/'),
       services: path.resolve(__dirname, './src/services/'),
       providers: path.resolve(__dirname, './src/providers/'),
+      pages: path.resolve(__dirname, './src/pages/'),
     },
-  },
-  build: {
-    chunkSizeWarningLimit: 1600,
   },
   test: {
     globals: true,

@@ -1,4 +1,5 @@
 import './styles/base.css';
+import 'antd/dist/reset.css';
 
 import { ReduxProvider } from '@app/providers/ReduxProvider';
 import { ThemeProvider } from '@app/providers/ThemeProvider';

@@ -1,17 +1,13 @@
-import { ErrorPage } from '@app/containers/ErrorPage';
+import { ErrorPage } from '@app/pages/ErrorPage';
+import HomePage from '@app/pages/HomePage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { HomePageLazy, IframePageLazy } from './Lazies';
 import { AppPages } from './types';
 
 const pages: AppPages[] = [
   {
     path: '/',
-    element: <HomePageLazy />,
-  },
-  {
-    path: '/iframe',
-    element: <IframePageLazy />,
+    element: <HomePage />,
   },
 ];
 

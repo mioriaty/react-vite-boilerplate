@@ -27,7 +27,8 @@
       "routes/*": ["./src/routes/*"],
       "httpHandler/*": ["./src/httpHandler/*"],
       "services/*": ["./src/services/*"],
-      "providers/*": ["./src/providers/*"]
+      "providers/*": ["./src/providers/*"],
+      "pages/*": ["./src/pages/*"]
     },
     "baseUrl": "."
   },
