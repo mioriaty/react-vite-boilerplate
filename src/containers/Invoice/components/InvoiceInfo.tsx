@@ -1,17 +1,17 @@
 import { UploadOutlined } from '@ant-design/icons';
 import { invoiceSelector, setInvoiceSettings } from '@app/containers/Invoice/store';
+import { withDebounce } from '@app/hocs/withDebounce';
 import { useAppDispatch, useAppSelector } from '@app/store';
-import { Button, Col, Form, Input, Row, Upload, UploadProps } from 'antd';
+import { debounce } from '@app/utils/functions/debounce';
+import { Button, Col, DatePicker, Form, Input, Row, Upload, UploadProps } from 'antd';
+import { ChangeEvent } from 'react';
 
 import * as styles from '../styles';
 
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
+const dateFormat = 'DD/MM/YYYY';
 
 export const InvoiceInfo = () => {
-  const { logo } = useAppSelector(invoiceSelector);
+  const { logo, invoiceTitle, invoiceDate } = useAppSelector(invoiceSelector);
   const dispatch = useAppDispatch();
 
   const handleUpload: UploadProps['customRequest'] = ({ file, onSuccess, onError }) => {
@@ -26,6 +26,22 @@ export const InvoiceInfo = () => {
         onError?.(new Error('Upload failed'));
       }
     };
+  };
+
+  const changeInvoiceNo = debounce((event: ChangeEvent<HTMLInputElement>) => {
+    dispatch(
+      setInvoiceSettings({
+        invoiceTitle: event.target.value,
+      }),
+    );
+  }, 300);
+
+  const changeInvoiceDate = (date: string) => {
+    dispatch(
+      setInvoiceSettings({
+        invoiceDate: date,
+      }),
+    );
   };
 
   return (
@@ -44,17 +60,20 @@ export const InvoiceInfo = () => {
           </Upload>
         </Col>
         <Col xs={{ flex: '100%' }} flex={'50%'}>
-          <Form {...layout} name="nest-messages">
-            <Form.Item name={['user', 'name']} label={<strong>Invoice No</strong>}>
-              <Input />
+          <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} name="invoice-info-form">
+            <Form.Item name={'invoiceTitle'} label={<strong>Invoice No</strong>}>
+              <Input value={invoiceTitle} onChange={changeInvoiceNo} />
             </Form.Item>
-            <Form.Item name={['user', 'email']} label={<strong>Invoice Date</strong>}>
-              <Input />
+
+            <Form.Item name={'invoiceDate'} label={<strong>Invoice Date</strong>}>
+              <DatePicker format={dateFormat} css={{ width: '100%' }} onChange={(_, dateString) => changeInvoiceDate(dateString)} />
             </Form.Item>
-            <Form.Item name={['user', 'age']} label={<strong>Due Date</strong>}>
-              <Input />
+
+            <Form.Item name={'invoiceDueDate'} label={<strong>Due Date</strong>}>
+              <DatePicker css={{ width: '100%' }} />
             </Form.Item>
-            <Form.Item name={['user', 'website']} label={<strong>Currency</strong>}>
+
+            <Form.Item name={'currency'} label={<strong>Currency</strong>}>
               <Input />
             </Form.Item>
           </Form>
