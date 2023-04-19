@@ -1,4 +1,4 @@
-import { sliceHomePage } from '@app/containers/HomePage/store/sliceHomePage';
+import { sliceHomePage } from '@app/pages/HomePage/store/sliceHomePage';
 import { rootReducer } from '@app/store/rootReducer';
 import { AnyAction, combineReducers, configureStore, Middleware, ThunkDispatch } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
