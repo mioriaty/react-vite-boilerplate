@@ -1,7 +1,8 @@
 export interface ProductLine {
+  id: string;
   name: string;
   description: string;
-  quantity: string;
+  quantity: number;
   price: number;
 }
 

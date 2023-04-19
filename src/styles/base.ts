@@ -23,6 +23,8 @@ html {
 
 body {
   margin: 0;
+  font-size: 16px;
+  font-family: "Lexend Deca", sans-serif;
 }
 
 /**

@@ -1,4 +1,4 @@
-import { Invoice } from '@app/containers/Invoice/types';
+import { Invoice, ProductLine } from '@app/containers/Invoice/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface State extends Invoice {}
@@ -9,7 +9,7 @@ export const defaultInvoice: State = {
   invoiceTitle: '',
   invoiceDate: '',
   invoiceDueDate: '',
-  currency: '',
+  currency: 'USD',
 
   // Bill From
   yourName: '',
@@ -49,6 +49,17 @@ export const invoiceSlice = createSlice({
         ...state,
         ...action.payload,
       };
+    },
+    editProductLine: (state, action: PayloadAction<AtLeast<ProductLine, 'id'>>) => {
+      state.productLines = state.productLines.map(item => {
+        if (item.id === action.payload.id) {
+          return {
+            ...item,
+            ...action.payload,
+          };
+        }
+        return item;
+      });
     },
   },
 });
