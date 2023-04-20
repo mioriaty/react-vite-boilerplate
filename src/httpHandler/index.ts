@@ -17,7 +17,7 @@ interface AxiosData {
 
 const axiosConfig = new ConfigureAxios({
   configure: {
-    baseURL: 'http://localhost:4000/',
+    baseURL: 'https://myshopkit.app/wp-admin/admin-ajax.php',
     method: 'GET',
     timeout: 10000,
   },

@@ -8,15 +8,22 @@ export const defaultInvoice: State = {
   logo: '',
   invoiceTitle: '',
   invoiceDate: '',
-  invoiceDueDate: '',
   currency: 'USD',
+  language: '',
+  color: '#007fff',
+  logoId: undefined,
+  badge: '',
+  type: '',
 
   // Bill From
   yourName: '',
+  yourCompanyName: '',
   yourEmail: '',
   yourAddress: '',
   yourCountry: '',
   yourZipCode: '',
+  yourCity: '',
+  yourState: '',
 
   // Bill To
   clientName: '',
@@ -24,17 +31,17 @@ export const defaultInvoice: State = {
   clientAddress: '',
   clientCountry: '',
   clientZipCode: '',
+  clientCity: '',
+  clientState: '',
 
   // product
   productLines: [],
 
   // Total
-  notes: '',
-
+  noteTitle: '',
+  noteDescription: '',
   tax: 0,
-  discount: 0,
   shipping: 0,
-  amountPaid: 0,
 };
 
 export const invoiceSlice = createSlice({
@@ -64,4 +71,4 @@ export const invoiceSlice = createSlice({
   },
 });
 
-export const invoiceSelector = (state: AppState) => state.invoice;
+export const invoiceSettingsSelector = (state: AppState) => state.invoice.settings;

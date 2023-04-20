@@ -52,6 +52,22 @@ export const invoiceInfo = {
       margin-bottom: 30px;
     }
   `,
+  colorContainer: ({ colors }: Theme) => css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid ${colors.gray3};
+    border-radius: 6px;
+    padding: 0 12px;
+
+    input {
+      border: unset !important;
+      padding-right: 0;
+      outline: unset !important;
+      box-shadow: unset !important;
+      cursor: pointer;
+    }
+  `,
 };
 
 export const invoiceBilling = {
@@ -93,6 +109,7 @@ export const invoiceProducts = {
     .invoiceProducts-first-col {
       min-width: 300px;
     }
+    overflow-x: auto;
 
     @media (max-width: 768px) {
       overflow-x: auto;
@@ -122,6 +139,10 @@ export const invoiceProducts = {
 
     > thead {
       vertical-align: bottom;
+
+      th {
+        white-space: nowrap;
+      }
     }
 
     > :not(:last-child) > :last-child > * {

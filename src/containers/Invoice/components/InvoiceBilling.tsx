@@ -1,4 +1,4 @@
-import { invoiceSelector, setInvoiceSettings } from '@app/containers/Invoice/store';
+import { invoiceSettingsSelector, setInvoiceSettings } from '@app/containers/Invoice/store';
 import { Invoice } from '@app/containers/Invoice/types';
 import { useAppDispatch, useAppSelector } from '@app/store';
 import { COUNTRIES } from '@app/utils/listCountries';
@@ -12,8 +12,23 @@ const formItemProps: FormItemProps = {
 };
 
 export const InvoiceBilling = () => {
-  const { yourAddress, yourCountry, yourEmail, yourName, yourZipCode, clientAddress, clientCountry, clientEmail, clientName, clientZipCode } =
-    useAppSelector(invoiceSelector);
+  const {
+    yourAddress,
+    yourCountry,
+    yourEmail,
+    yourName,
+    yourZipCode,
+    yourCompanyName,
+    clientAddress,
+    clientCountry,
+    clientEmail,
+    clientName,
+    clientZipCode,
+    yourCity,
+    yourState,
+    clientCity,
+    clientState,
+  } = useAppSelector(invoiceSettingsSelector);
   const dispatch = useAppDispatch();
 
   const handleUpdateSetting = (fieldName: keyof Invoice, value: string | number) => {
@@ -26,8 +41,12 @@ export const InvoiceBilling = () => {
         <Col className="invoiceBilling-left" xs={{ flex: '100%' }} flex={'50%'}>
           <h2 css={styles.invoiceBilling.label}>Billing From</h2>
 
-          <Form.Item {...formItemProps} required label={<strong css={{ fontSize: '14px' }}>Your Name</strong>}>
+          <Form.Item {...formItemProps} required label={<strong css={{ fontSize: '14px' }}>Sender Name</strong>}>
             <Input size="large" value={yourName} onChange={e => handleUpdateSetting('yourName', e.target.value)} />
+          </Form.Item>
+
+          <Form.Item {...formItemProps} required label={<strong css={{ fontSize: '14px' }}>Company Name</strong>}>
+            <Input size="large" value={yourCompanyName} onChange={e => handleUpdateSetting('yourCompanyName', e.target.value)} />
           </Form.Item>
 
           <Form.Item
@@ -49,6 +68,10 @@ export const InvoiceBilling = () => {
           </Form.Item>
 
           <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>City</strong>}>
+            <Input size="large" value={yourCity} onChange={e => handleUpdateSetting('yourCity', e.target.value)} />
+          </Form.Item>
+
+          <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>Address</strong>}>
             <Input size="large" value={yourAddress} onChange={e => handleUpdateSetting('yourAddress', e.target.value)} />
           </Form.Item>
 
@@ -61,6 +84,10 @@ export const InvoiceBilling = () => {
               value={yourCountry === '' ? undefined : yourCountry}
               onChange={val => handleUpdateSetting('yourCountry', val)}
             />
+          </Form.Item>
+
+          <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>State/Province</strong>}>
+            <Input size="large" value={yourState} onChange={e => handleUpdateSetting('yourState', e.target.value)} />
           </Form.Item>
 
           <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>Zip Code</strong>}>
@@ -94,6 +121,10 @@ export const InvoiceBilling = () => {
           </Form.Item>
 
           <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>City</strong>}>
+            <Input size="large" value={clientCity} onChange={e => handleUpdateSetting('clientCity', e.target.value)} />
+          </Form.Item>
+
+          <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>Address</strong>}>
             <Input size="large" value={clientAddress} onChange={e => handleUpdateSetting('clientAddress', e.target.value)} />
           </Form.Item>
 
@@ -106,6 +137,10 @@ export const InvoiceBilling = () => {
               value={clientCountry === '' ? undefined : clientCountry}
               onChange={val => handleUpdateSetting('clientCountry', val)}
             />
+          </Form.Item>
+
+          <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>State/Province</strong>}>
+            <Input size="large" value={clientState} onChange={e => handleUpdateSetting('clientState', e.target.value)} />
           </Form.Item>
 
           <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>Zip Code</strong>}>
