@@ -7,6 +7,11 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./vitest.setup.ts'],
+  },
   resolve: {
     alias: {
       '@app': path.resolve(__dirname, './src/'),
@@ -22,10 +27,5 @@ export default defineConfig({
       providers: path.resolve(__dirname, './src/providers/'),
       pages: path.resolve(__dirname, './src/pages/'),
     },
-  },
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./vitest.setup.ts'],
   },
 });

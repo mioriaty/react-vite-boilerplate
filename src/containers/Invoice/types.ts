@@ -7,13 +7,14 @@ export interface ProductLine {
 }
 
 export interface Invoice {
-  // invoice
+  // 1. Invoice info
   logo: string;
   invoiceTitle: string;
   invoiceDate: string;
   invoiceDueDate: string;
   currency: string;
 
+  // 2. Invoice Billing
   // Bill From
   yourName: string;
   yourEmail: string;
@@ -28,10 +29,10 @@ export interface Invoice {
   clientCountry: string;
   clientZipCode: string;
 
-  // product
+  // 3. Invoice Product
   productLines: ProductLine[];
 
-  // Total
+  // Invoice Tax
   notes: string;
 
   tax: number;

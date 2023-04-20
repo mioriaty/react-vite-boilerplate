@@ -27,7 +27,7 @@ export const store = configureStore({
 });
 
 sagaMiddleware.run(rootSaga);
-export const persistor = persistStore(store as any);
+export const persister = persistStore(store as any);
 
 export type Reducers = ReturnType<typeof store.getState>;
 
