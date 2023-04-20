@@ -1,10 +1,13 @@
 import { invoiceSelector, setInvoiceSettings } from '@app/containers/Invoice/store';
+import { Invoice } from '@app/containers/Invoice/types';
 import { useAppDispatch, useAppSelector } from '@app/store';
 import { calculateTotalPrice } from '@app/utils/calculateTotalPrice';
 import { getSymbolAmount, moneyFormats } from '@app/utils/moneyFormat';
 import { Col, Input, InputNumber, Row } from 'antd';
 
 import * as styles from '../styles';
+
+type FieldName = keyof Invoice;
 
 export const InvoiceTax = () => {
   const { shipping, amountPaid, tax, discount, notes, productLines, currency } = useAppSelector(invoiceSelector);
@@ -14,24 +17,8 @@ export const InvoiceTax = () => {
   const calTotalPrice = calculateTotalPrice(calSubPrice, tax, discount, shipping, amountPaid);
   const totalPrice = getSymbolAmount(moneyFormats, currency, calTotalPrice);
 
-  const changeNote = (value: string) => {
-    dispatch(setInvoiceSettings({ notes: value }));
-  };
-
-  const changeTax = (value: number) => {
-    dispatch(setInvoiceSettings({ tax: value }));
-  };
-
-  const changeDiscount = (value: number) => {
-    dispatch(setInvoiceSettings({ discount: value }));
-  };
-
-  const changeShipping = (value: number) => {
-    dispatch(setInvoiceSettings({ shipping: value }));
-  };
-
-  const changeAmountPaid = (value: number) => {
-    dispatch(setInvoiceSettings({ amountPaid: value }));
+  const handleUpdateSetting = (fieldName: FieldName, value: string | number) => {
+    dispatch(setInvoiceSettings({ [fieldName]: value }));
   };
 
   return (
@@ -39,7 +26,7 @@ export const InvoiceTax = () => {
       <Row>
         <Col className="invoiceTax-left" flex={'50%'}>
           <strong css={{ lineHeight: '30px' }}>Note: </strong>
-          <Input.TextArea size="large" rows={5} value={notes} onChange={e => changeNote(e.target.value)} />
+          <Input.TextArea size="large" rows={5} value={notes} onChange={e => handleUpdateSetting('notes', e.target.value)} />
         </Col>
         <Col className="invoiceTax-right" flex={'50%'}>
           <div css={styles.invoiceTax.totalContainer}>
@@ -57,7 +44,7 @@ export const InvoiceTax = () => {
                 <label>Tax (%):</label>
               </Col>
               <Col flex={'50%'}>
-                <InputNumber style={{ width: '100%' }} value={tax} onChange={val => changeTax(val ?? 0)} />
+                <InputNumber style={{ width: '100%' }} value={tax} onChange={val => handleUpdateSetting('tax', val ?? 0)} />
               </Col>
             </Row>
 
@@ -66,7 +53,7 @@ export const InvoiceTax = () => {
                 <label>Discount (%):</label>
               </Col>
               <Col flex={'50%'}>
-                <InputNumber style={{ width: '100%' }} value={discount} onChange={val => changeDiscount(val ?? 0)} />
+                <InputNumber style={{ width: '100%' }} value={discount} onChange={val => handleUpdateSetting('discount', val ?? 0)} />
               </Col>
             </Row>
 
@@ -75,7 +62,7 @@ export const InvoiceTax = () => {
                 <label>Shipping:</label>
               </Col>
               <Col flex={'50%'}>
-                <InputNumber style={{ width: '100%' }} value={shipping} onChange={val => changeShipping(val ?? 0)} />
+                <InputNumber style={{ width: '100%' }} value={shipping} onChange={val => handleUpdateSetting('shipping', val ?? 0)} />
               </Col>
             </Row>
 
@@ -84,7 +71,7 @@ export const InvoiceTax = () => {
                 <label>Amount Paid:</label>
               </Col>
               <Col flex={'50%'}>
-                <InputNumber style={{ width: '100%' }} value={amountPaid} onChange={val => changeAmountPaid(val ?? 0)} />
+                <InputNumber style={{ width: '100%' }} value={amountPaid} onChange={val => handleUpdateSetting('amountPaid', val ?? 0)} />
               </Col>
             </Row>
 

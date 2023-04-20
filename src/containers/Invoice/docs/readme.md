@@ -3,6 +3,7 @@
 ![tong quan](./images/UI.png)  
 
 Data type tương ứng
+
 [File chứa type](../types.ts)
 
 ```ts
@@ -55,6 +56,7 @@ export interface Invoice {
 ### 1. Invoice Info
 
 [File chứa code](../components/InvoiceInfo.tsx)
+
 Chứa thông tin cơ bản của hóa đơn, gồm các trường:
 
 - Logo
@@ -68,6 +70,7 @@ Chứa thông tin cơ bản của hóa đơn, gồm các trường:
 ### 2. Invoice Billing
 
 [File chứa code](../components/InvoiceBilling.tsx)
+
 Chứa thông tin thanh toán của người gửi và người nhận, gồm các trường:
 
 - Người gửi:
@@ -88,6 +91,7 @@ Chứa thông tin thanh toán của người gửi và người nhận, gồm c�
 ### 3. Invoice Products
 
 [File chứa code](../components/InvoiceProducts.tsx)
+
 Chứa thông tin sản phẩm trong hóa đơn, 1 sản phẩm gồm các trường:
 
 - Tên sản phẩm
@@ -101,6 +105,7 @@ Chứa thông tin sản phẩm trong hóa đơn, 1 sản phẩm gồm các trư�
 ### 4. Invoice Total
 
 [File chứa code](../components/InvoiceTax.tsx)
+
 Chứa ghi chú của hóa đơn và tổng số tiền, gồm các trường
 
 - Tổng số tiền của các sản phầm
@@ -112,3 +117,5 @@ Chứa ghi chú của hóa đơn và tổng số tiền, gồm các trường
 - Tổng tiền sau khi tính các trường trên
 
 ![tong quan](./images/invoice-tax.png)
+
+## [Nơi chứa state quản lí form](../store/invoiceSlice.ts)

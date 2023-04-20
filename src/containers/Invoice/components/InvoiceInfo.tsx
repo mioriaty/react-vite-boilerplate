@@ -1,11 +1,10 @@
 import { UploadOutlined } from '@ant-design/icons';
 import { invoiceSelector, setInvoiceSettings } from '@app/containers/Invoice/store';
+import { Invoice } from '@app/containers/Invoice/types';
 import { useAppDispatch, useAppSelector } from '@app/store';
-import { debounce } from '@app/utils/functions/debounce';
 import { currencyData } from '@app/utils/moneyFormat';
 import { useTheme } from '@emotion/react';
 import { Button, Col, DatePicker, Form, FormItemProps, Input, Row, Select, Upload, UploadProps } from 'antd';
-import { ChangeEvent } from 'react';
 
 import * as styles from '../styles';
 
@@ -35,28 +34,12 @@ export const InvoiceInfo = () => {
     };
   };
 
-  const changeInvoiceNo = debounce((event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeSettings = (fieldName: keyof Invoice, value: string | number) => {
     dispatch(
       setInvoiceSettings({
-        invoiceTitle: event.target.value,
+        [fieldName]: value,
       }),
     );
-  }, 300);
-
-  const changeInvoiceDate = (date: string) => {
-    dispatch(
-      setInvoiceSettings({
-        invoiceDate: date,
-      }),
-    );
-  };
-
-  const changeInvoiceDueDate = (date: string) => {
-    dispatch(setInvoiceSettings({ invoiceDueDate: date }));
-  };
-
-  const changeCurrency = (value: string) => {
-    dispatch(setInvoiceSettings({ currency: value }));
   };
 
   return (
@@ -71,7 +54,7 @@ export const InvoiceInfo = () => {
               <img src={logo} alt="Uploaded Image" />
             </div>
           )}
-          <Upload accept=".png, .jpeg, .jpg, .webp, .svg" customRequest={handleUpload} fileList={[]}>
+          <Upload accept=".png, .jpeg, .jpg, .svg" customRequest={handleUpload} fileList={[]}>
             <Button size="large" icon={<UploadOutlined />}>
               Click to Upload
             </Button>
@@ -79,20 +62,40 @@ export const InvoiceInfo = () => {
           </Upload>
         </Col>
         <Col className="invoiceInfo-right" xs={{ flex: '100%' }} flex={'50%'}>
-          <Form.Item {...formItemProps} name={'invoiceTitle'} label={<strong css={{ fontSize: '14px' }}>Invoice No</strong>}>
-            <Input size="large" value={invoiceTitle} onChange={changeInvoiceNo} />
+          <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>Invoice No</strong>}>
+            <Input size="large" value={invoiceTitle} onChange={e => handleChangeSettings('invoiceTitle', e.target.value)} />
           </Form.Item>
 
-          <Form.Item {...formItemProps} name={'invoiceDate'} label={<strong css={{ fontSize: '14px' }}>Invoice Date</strong>}>
-            <DatePicker size="large" format={dateFormat} css={{ width: '100%' }} onChange={(_, dateString) => changeInvoiceDate(dateString)} />
+          <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>Invoice Date</strong>}>
+            <DatePicker
+              size="large"
+              format={dateFormat}
+              css={{ width: '100%' }}
+              onChange={(_, dateString) => handleChangeSettings('invoiceDate', dateString)}
+            />
           </Form.Item>
 
-          <Form.Item {...formItemProps} name={'invoiceDueDate'} label={<strong css={{ fontSize: '14px' }}>Due Date</strong>}>
-            <DatePicker size="large" format={dateFormat} css={{ width: '100%' }} onChange={(_, dateString) => changeInvoiceDueDate(dateString)} />
+          <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>Due Date</strong>}>
+            <DatePicker
+              size="large"
+              format={dateFormat}
+              css={{ width: '100%' }}
+              onChange={(_, dateString) => handleChangeSettings('invoiceDueDate', dateString)}
+            />
           </Form.Item>
 
-          <Form.Item {...formItemProps} name={'currency'} label={<strong css={{ fontSize: '14px' }}>Currency</strong>}>
-            <Select size="large" value={currency} defaultValue={currency} showSearch options={currencyData} onChange={changeCurrency} />
+          <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>Currency</strong>}>
+            <Select
+              size="large"
+              filterOption={(input, option) => {
+                return (option?.label as unknown as string).toLowerCase().includes(input.toLowerCase());
+              }}
+              value={currency}
+              defaultValue={currency}
+              showSearch
+              options={currencyData}
+              onChange={val => handleChangeSettings('currency', val)}
+            />
           </Form.Item>
         </Col>
       </Row>

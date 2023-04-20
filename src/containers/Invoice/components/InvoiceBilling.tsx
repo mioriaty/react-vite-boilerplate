@@ -1,4 +1,5 @@
 import { invoiceSelector, setInvoiceSettings } from '@app/containers/Invoice/store';
+import { Invoice } from '@app/containers/Invoice/types';
 import { useAppDispatch, useAppSelector } from '@app/store';
 import { COUNTRIES } from '@app/utils/listCountries';
 import { Col, Form, FormItemProps, Input, Row, Select } from 'antd';
@@ -15,46 +16,8 @@ export const InvoiceBilling = () => {
     useAppSelector(invoiceSelector);
   const dispatch = useAppDispatch();
 
-  // Billing From
-  const changeYourName = (value: string) => {
-    dispatch(setInvoiceSettings({ yourName: value }));
-  };
-
-  const changeYourEmailAddress = (value: string) => {
-    dispatch(setInvoiceSettings({ yourEmail: value }));
-  };
-
-  const changeYourCity = (value: string) => {
-    dispatch(setInvoiceSettings({ yourAddress: value }));
-  };
-
-  const changeYourCountry = (value: string) => {
-    dispatch(setInvoiceSettings({ yourCountry: value }));
-  };
-
-  const changeYourZipCode = (value: string) => {
-    dispatch(setInvoiceSettings({ yourZipCode: value }));
-  };
-
-  // Billing To
-  const changeClientName = (value: string) => {
-    dispatch(setInvoiceSettings({ clientName: value }));
-  };
-
-  const changeClientEmail = (value: string) => {
-    dispatch(setInvoiceSettings({ clientEmail: value }));
-  };
-
-  const changeClientAddress = (value: string) => {
-    dispatch(setInvoiceSettings({ clientAddress: value }));
-  };
-
-  const changeClientCountry = (value: string) => {
-    dispatch(setInvoiceSettings({ clientCountry: value }));
-  };
-
-  const changeClientZipCode = (value: string) => {
-    dispatch(setInvoiceSettings({ clientZipCode: value }));
+  const handleUpdateSetting = (fieldName: keyof Invoice, value: string | number) => {
+    dispatch(setInvoiceSettings({ [fieldName]: value }));
   };
 
   return (
@@ -64,7 +27,7 @@ export const InvoiceBilling = () => {
           <h2 css={styles.invoiceBilling.label}>Billing From</h2>
 
           <Form.Item {...formItemProps} required label={<strong css={{ fontSize: '14px' }}>Your Name</strong>}>
-            <Input size="large" value={yourName} onChange={e => changeYourName(e.target.value)} />
+            <Input size="large" value={yourName} onChange={e => handleUpdateSetting('yourName', e.target.value)} />
           </Form.Item>
 
           <Form.Item
@@ -82,19 +45,26 @@ export const InvoiceBilling = () => {
             ]}
             label={<strong css={{ fontSize: '14px' }}>Email Address</strong>}
           >
-            <Input size="large" value={yourEmail} onChange={e => changeYourEmailAddress(e.target.value)} />
+            <Input size="large" value={yourEmail} onChange={e => handleUpdateSetting('yourEmail', e.target.value)} />
           </Form.Item>
 
           <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>City</strong>}>
-            <Input size="large" value={yourAddress} onChange={e => changeYourCity(e.target.value)} />
+            <Input size="large" value={yourAddress} onChange={e => handleUpdateSetting('yourAddress', e.target.value)} />
           </Form.Item>
 
           <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>Country</strong>}>
-            <Select size="large" showSearch options={COUNTRIES} value={yourCountry} onChange={changeYourCountry} />
+            <Select
+              placeholder="Select country"
+              size="large"
+              showSearch
+              options={COUNTRIES}
+              value={yourCountry === '' ? undefined : yourCountry}
+              onChange={val => handleUpdateSetting('yourCountry', val)}
+            />
           </Form.Item>
 
           <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>Zip Code</strong>}>
-            <Input size="large" value={yourZipCode} onChange={e => changeYourZipCode(e.target.value)} />
+            <Input size="large" value={yourZipCode} onChange={e => handleUpdateSetting('yourZipCode', e.target.value)} />
           </Form.Item>
         </Col>
 
@@ -102,7 +72,7 @@ export const InvoiceBilling = () => {
           <h2 css={styles.invoiceBilling.label}>Billing To</h2>
 
           <Form.Item {...formItemProps} required label={<strong css={{ fontSize: '14px' }}>Customer&apos;s Name</strong>}>
-            <Input size="large" value={clientName} onChange={e => changeClientName(e.target.value)} />
+            <Input size="large" value={clientName} onChange={e => handleUpdateSetting('clientName', e.target.value)} />
           </Form.Item>
 
           <Form.Item
@@ -120,19 +90,26 @@ export const InvoiceBilling = () => {
             ]}
             label={<strong css={{ fontSize: '14px' }}>Email Address</strong>}
           >
-            <Input size="large" value={clientEmail} onChange={e => changeClientEmail(e.target.value)} />
+            <Input size="large" value={clientEmail} onChange={e => handleUpdateSetting('clientEmail', e.target.value)} />
           </Form.Item>
 
           <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>City</strong>}>
-            <Input size="large" value={clientAddress} onChange={e => changeClientAddress(e.target.value)} />
+            <Input size="large" value={clientAddress} onChange={e => handleUpdateSetting('clientAddress', e.target.value)} />
           </Form.Item>
 
           <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>Country</strong>}>
-            <Select size="large" showSearch options={COUNTRIES} value={clientCountry} onChange={changeClientCountry} />
+            <Select
+              placeholder="Select country"
+              size="large"
+              showSearch
+              options={COUNTRIES}
+              value={clientCountry === '' ? undefined : clientCountry}
+              onChange={val => handleUpdateSetting('clientCountry', val)}
+            />
           </Form.Item>
 
           <Form.Item {...formItemProps} label={<strong css={{ fontSize: '14px' }}>Zip Code</strong>}>
-            <Input size="large" value={clientZipCode} onChange={e => changeClientZipCode(e.target.value)} />
+            <Input size="large" value={clientZipCode} onChange={e => handleUpdateSetting('clientZipCode', e.target.value)} />
           </Form.Item>
         </Col>
       </Row>

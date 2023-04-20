@@ -88,12 +88,15 @@ export const invoiceBilling = {
 
 export const invoiceProducts = {
   container: css`
+    padding-top: 30px;
+
     .invoiceProducts-first-col {
       min-width: 300px;
     }
 
     @media (max-width: 768px) {
       overflow-x: auto;
+      padding-top: 15px;
     }
   `,
   table: ({ colors }: Theme) => css`
@@ -129,7 +132,7 @@ export const invoiceProducts = {
 
 export const invoiceTax = {
   container: css`
-    padding: 50px 0;
+    padding: 30px 0;
 
     @media (max-width: 768px) {
       padding: 15px 0;

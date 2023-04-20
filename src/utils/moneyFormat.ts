@@ -94,11 +94,6 @@ export const moneyFormats = {
     money_with_currency_format: 'Br {{amount}} BYN',
     money_name: 'Belarusian Ruble',
   },
-  // BYR: {
-  //   money_format: 'Br {{amount}}',
-  //   money_with_currency_format: 'Br {{amount}} BYR',
-  //   money_name: 'Belarusian Ruble',
-  // },
   BZD: {
     money_format: 'BZ${{amount}}',
     money_with_currency_format: 'BZ${{amount}} BZD',
@@ -871,6 +866,22 @@ export const currencyData: Array<{ label: string; value: string }> = Object.entr
   return acc;
 }, [] as any);
 
+/**
+ * This TypeScript function takes in a currency object and an amount, and returns a formatted string
+ * representing the amount in the specified currency.
+ * @param currencies - an object containing different currency formats, where each key is a currency
+ * code (e.g. USD, EUR) and each value is an object containing the format for that currency (e.g. the
+ * symbol, decimal separator, etc.).
+ * @param {string} currentCurrency - The current currency is a string parameter that represents the
+ * currency code (e.g. USD, EUR, GBP) for which the symbol amount needs to be calculated.
+ * @param {number | string} currentAmount - The current amount of the currency that needs to be
+ * formatted. It can be a number or a string.
+ * @returns a formatted string representing the amount of a given currency. The function takes in three
+ * parameters: `currencies`, which is an object containing the formatting information for different
+ * currencies, `currentCurrency`, which is a string representing the currency being used, and
+ * `currentAmount`, which is a number or string representing the amount of the currency being used. The
+ * function then uses the `currentCurrency
+ */
 export const getSymbolAmount = (currencies: typeof moneyFormats, currentCurrency: string, currentAmount: number | string) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
