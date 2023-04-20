@@ -17,7 +17,6 @@ export const defaultInvoice: State = {
 
   // Bill From
   yourName: '',
-  yourCompanyName: '',
   yourEmail: '',
   yourAddress: '',
   yourCountry: '',

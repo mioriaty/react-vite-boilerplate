@@ -32,7 +32,6 @@ export interface InvoiceDTO {
   sender_address: string;
   sender_city: string;
   sender_country: string;
-  sender_company_name: string;
   sender_state?: string;
 
   // Billing to

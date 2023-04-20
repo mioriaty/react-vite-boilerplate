@@ -22,13 +22,7 @@ export const GroupButton = () => {
   };
 
   const handleSubmit = (type: InvoiceSubmitType) => {
-    if (
-      invoice.clientEmail === '' ||
-      invoice.clientName === '' ||
-      invoice.yourCompanyName === '' ||
-      invoice.yourEmail === '' ||
-      invoice.yourName === ''
-    ) {
+    if (invoice.clientEmail === '' || invoice.clientName === '' || invoice.yourEmail === '' || invoice.yourName === '') {
       message.warning('Mandatory fields are marked with an asterisk (*) cannot be empty');
     } else {
       dispatch(submitInvoicePending({ type, invoice }));

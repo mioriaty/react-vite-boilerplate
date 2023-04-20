@@ -23,7 +23,6 @@ export interface Invoice {
   // Bill From
   yourName: string;
   yourEmail: string;
-  yourCompanyName: string;
   yourAddress: string;
   yourCity: string;
   yourCountry: string;
@@ -51,4 +50,4 @@ export interface Invoice {
 
 type FieldName = keyof Invoice;
 
-export type RequiredField = Extract<FieldName, 'yourName' | 'yourEmail' | 'yourCompanyName' | 'clientName' | 'clientEmail'>;
+export type RequiredField = Extract<FieldName, 'yourName' | 'yourEmail' | 'clientName' | 'clientEmail'>;

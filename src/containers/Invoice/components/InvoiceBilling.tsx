@@ -18,7 +18,6 @@ export const InvoiceBilling = () => {
     yourEmail,
     yourName,
     yourZipCode,
-    yourCompanyName,
     clientAddress,
     clientCountry,
     clientEmail,
@@ -41,12 +40,8 @@ export const InvoiceBilling = () => {
         <Col className="invoiceBilling-left" xs={{ flex: '100%' }} flex={'50%'}>
           <h2 css={styles.invoiceBilling.label}>Billing From</h2>
 
-          <Form.Item {...formItemProps} required label={<strong css={{ fontSize: '14px' }}>Sender Name</strong>}>
-            <Input size="large" value={yourName} onChange={e => handleUpdateSetting('yourName', e.target.value)} />
-          </Form.Item>
-
           <Form.Item {...formItemProps} required label={<strong css={{ fontSize: '14px' }}>Company Name</strong>}>
-            <Input size="large" value={yourCompanyName} onChange={e => handleUpdateSetting('yourCompanyName', e.target.value)} />
+            <Input size="large" value={yourName} onChange={e => handleUpdateSetting('yourName', e.target.value)} />
           </Form.Item>
 
           <Form.Item

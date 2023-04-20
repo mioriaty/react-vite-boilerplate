@@ -39,7 +39,6 @@ export const transformClientInvoiceToDTO = (invoice: Invoice): InvoiceDTO => {
 
     sender_address: invoice.yourAddress,
     sender_city: invoice.yourCity,
-    sender_company_name: invoice.yourCompanyName,
     sender_country: invoice.yourCountry,
     sender_email: invoice.yourEmail,
     sender_name: invoice.yourName,
