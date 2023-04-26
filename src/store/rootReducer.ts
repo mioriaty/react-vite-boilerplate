@@ -1,7 +1,7 @@
 import { todoSlice } from '@app/containers/DemoFeatures/Todo';
-import { sliceError } from '@app/containers/ErrorPage';
-import { sliceHomePage } from '@app/containers/HomePage/store/sliceHomePage';
 import { chatSlice } from '@app/containers/SocketConntector';
+import { sliceError } from '@app/pages/ErrorPage';
+import { sliceHomePage } from '@app/pages/HomePage/store/sliceHomePage';
 import { combineReducers } from '@reduxjs/toolkit';
 
 export const rootReducer = {

@@ -3,9 +3,16 @@ import { Highlight } from '@app/components/Highlight';
 import { Spinner } from '@app/components/Spinner';
 import Switch from '@app/components/Switch';
 import { Tooltip } from '@app/components/Tooltip';
+import {
+  DemoAutocomplete,
+  DemoModal,
+  DemoModalStep,
+  DemoPostmessage,
+  DemoTodo,
+  DemoUseTransition,
+  DemoWebWorker,
+} from '@app/containers/DemoFeatures';
 import { FC } from 'react';
-
-import { DemoAutocomplete, DemoModal, DemoModalStep, DemoPostmessage, DemoTodo, DemoUseTransition, DemoWebWorker } from '../DemoFeatures';
 
 export const HomePage: FC = () => {
   return (

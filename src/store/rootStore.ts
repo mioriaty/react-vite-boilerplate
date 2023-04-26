@@ -1,4 +1,3 @@
-import { sliceHomePage } from '@app/containers/HomePage/store/sliceHomePage';
 import { rootReducer } from '@app/store/rootReducer';
 import { AnyAction, combineReducers, configureStore, Middleware, ThunkDispatch } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
@@ -30,8 +29,6 @@ sagaMiddleware.run(rootSaga);
 export const persistor = persistStore(store as any);
 
 export type Reducers = ReturnType<typeof store.getState>;
-
-export type ActionTypes = CombineSliceActions<typeof sliceHomePage.actions>;
 
 export type AppThunkDispatch = ThunkDispatch<Reducers, any, AnyAction>;
 export type AppDispatch = typeof store.dispatch;

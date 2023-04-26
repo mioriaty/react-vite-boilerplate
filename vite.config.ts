@@ -1,14 +1,14 @@
 /// <reference types="vitest" />
 import react from '@vitejs/plugin-react';
 import * as path from 'path';
-import { defineConfig } from 'vite';
+import { defineConfig, splitVendorChunkPlugin } from 'vite';
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split';
-// import eslint from 'vite-plugin-eslint';
+import svgrPlugin from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react(), tsconfigPaths(), chunkSplitPlugin()],
+export default defineConfig(({ command, mode }) => ({
+  plugins: [react(), tsconfigPaths(), chunkSplitPlugin(), svgrPlugin(), splitVendorChunkPlugin()],
   resolve: {
     alias: {
       '@app': path.resolve(__dirname, './src/'),
@@ -22,14 +22,22 @@ export default defineConfig({
       httpHandler: path.resolve(__dirname, './src/httpHandler/'),
       services: path.resolve(__dirname, './src/services/'),
       providers: path.resolve(__dirname, './src/providers/'),
+      pages: path.resolve(__dirname, './src/pages/'),
     },
   },
   build: {
     chunkSizeWarningLimit: 1600,
+    minify: mode === 'development' ? false : 'terser',
+    sourcemap: command === 'serve' ? 'inline' : false,
+    rollupOptions: {
+      output: {
+        indent: false,
+      },
+    },
   },
   test: {
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
   },
-});
+}));

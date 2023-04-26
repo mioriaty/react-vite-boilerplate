@@ -1,4 +1,4 @@
-import { ErrorPage } from '@app/containers/ErrorPage';
+import { ErrorPage } from '@app/pages/ErrorPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { HomePageLazy, IframePageLazy } from './Lazies';

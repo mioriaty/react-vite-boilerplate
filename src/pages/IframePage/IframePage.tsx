@@ -1,7 +1,6 @@
+import { pmIframe } from '@app/containers/DemoFeatures/Postmessage/postmessage';
 import { useTheme } from '@emotion/react';
 import { FC, useEffect, useState } from 'react';
-
-import { pmIframe } from '../DemoFeatures/Postmessage/postmessage';
 
 export const IframePage: FC = () => {
   const [sections, setSections] = useState<any[]>([]);
