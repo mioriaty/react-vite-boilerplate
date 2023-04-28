@@ -1,6 +1,5 @@
 import { rootReducer } from '@app/store/rootReducer';
 import { AnyAction, combineReducers, configureStore, Middleware, ThunkDispatch } from '@reduxjs/toolkit';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import logger from 'redux-logger';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -32,7 +31,3 @@ export type Reducers = ReturnType<typeof store.getState>;
 
 export type AppThunkDispatch = ThunkDispatch<Reducers, any, AnyAction>;
 export type AppDispatch = typeof store.dispatch;
-
-export const useAppDispatch = () => useDispatch<AppThunkDispatch>();
-
-export const useAppSelector: TypedUseSelectorHook<Reducers> = useSelector;

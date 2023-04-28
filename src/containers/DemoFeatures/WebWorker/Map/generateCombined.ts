@@ -1,12 +1,4 @@
 /* eslint-disable no-use-before-define */
-interface Options {
-  seatTemplatePrefix: any;
-  scale: any;
-  vbScaleFactor: any;
-  screenDistance: any;
-  screenHeight: any;
-  reverse: boolean;
-}
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

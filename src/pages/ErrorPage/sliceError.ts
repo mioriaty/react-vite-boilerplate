@@ -19,5 +19,3 @@ export const sliceError = createSlice({
 });
 
 export const { setMessageError } = sliceError.actions;
-
-export const homePageSelector = (state: AppState) => state.home;

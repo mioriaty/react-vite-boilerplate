@@ -47,12 +47,7 @@ export const chatSlice = createSlice({
     ) => {
       state.messages.push(action.payload.message);
     },
-    submitMessage: (
-      state,
-      action: PayloadAction<{
-        content: string;
-      }>,
-    ) => {
+    submitMessage: () => {
       return;
     },
   },

@@ -1,6 +1,6 @@
 import { AsyncComponent } from '@app/components/AsyncComponent';
 import { Button } from '@app/components/Button';
-import { useAppDispatch, useAppSelector } from '@app/store';
+import { useAppDispatch, useAppSelector } from '@app/hooks/useAppRedux';
 
 import { todoActions, todoSelector } from './store';
 
