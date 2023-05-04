@@ -35,7 +35,7 @@ export const socketMiddleware: Middleware = store => {
 
     // Emit the ChatEvent.SendMessage event when the user dispatches the chatActions.submitMessage action.
     if (chatSliceActions.submitMessage.match(action) && isConnected) {
-      socket.emit(ChatEvent.SendMessage, action.payload.content);
+      socket.emit(ChatEvent.SendMessage);
     }
 
     next(action);

@@ -527,6 +527,7 @@ export default function test(data: any, { seatTemplatePrefix, scale, vbScaleFact
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   function mapAreasWithScale(areas, { scale = SCALE, screenDistance = SCREEN_DISTANCE, screenHeight = SCREEN_HEIGHT, reverse = true } = {}) {
+    console.log(reverse);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return areas.map(area => {
