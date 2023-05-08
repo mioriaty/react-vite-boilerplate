@@ -9,15 +9,22 @@ export const IframePage: FC = () => {
   const theme = useTheme();
 
   useEffect(() => {
+    console.log('init');
     const off1 = pmIframe.on('@sections', data => {
       setSections(data.payload.sections);
     });
     const off2 = pmIframe.on('@draggingId', data => {
       setDraggingId(data.payload);
     });
+    const off3 = pmIframe.on('@clicked', data => {
+      console.log(data, 123);
+      pmIframe.emit('getClickedSuccess', undefined);
+    });
+
     return () => {
       off1();
       off2();
+      off3();
     };
   }, []);
 

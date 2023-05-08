@@ -1,3 +1,5 @@
+import { Button } from '@app/components/Button';
+import { MyModal } from '@app/components/Modal';
 import Sortable, { SortableProps } from '@app/components/Sortable/Sortable';
 import { reorder } from '@app/utils/functions/reorder';
 import { useTheme } from '@emotion/react';
@@ -7,12 +9,32 @@ import { DropResult } from 'react-beautiful-dnd';
 import { pmPopup } from './postmessage';
 import { sectionsData } from './sections';
 
+const iframeContainer = document.createElement('div');
+iframeContainer.id = 'fake-iframe-container';
+iframeContainer.style.cssText = `
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+`;
+document.body.append(iframeContainer);
+
 export const DemoPostmessage = () => {
   const [sections, setSections] = useState(sectionsData);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     pmPopup.emit('@sections', { sections: sections });
   }, [sections]);
+
+  useEffect(() => {
+    const post1 = pmPopup.on('getClickedSuccess', () => {
+      // iframeContainer.innerHTML = '';
+    });
+
+    return () => {
+      post1();
+    };
+  }, []);
 
   const handleDropEnd = (result: DropResult) => {
     if (!result.destination) {
@@ -66,7 +88,28 @@ export const DemoPostmessage = () => {
           />
         </div>
 
-        <iframe id="iframe-section" src="/iframe" css={{ width: '600px' }} title="unique" />
+        <Button
+          onClick={() => {
+            if (iframeContainer.querySelector('#iframe-section')) {
+              pmPopup.emit('@clicked', true);
+            } else {
+              const iframe = document.createElement('iframe');
+              iframe.id = 'iframe-section';
+              iframe.src = '/iframe';
+              iframe.onload = function () {
+                pmPopup.emit('@clicked', true);
+              };
+              iframeContainer.appendChild(iframe);
+            }
+          }}
+        >
+          Click aa
+        </Button>
+        <Button onClick={() => setVisible(true)}>Open Modal</Button>
+
+        <MyModal isVisible={visible} onCancel={() => setVisible(false)}>
+          <iframe id="iframe-section" src="/iframe" css={{ width: '600px' }} title="unique" />
+        </MyModal>
       </div>
     </div>
   );

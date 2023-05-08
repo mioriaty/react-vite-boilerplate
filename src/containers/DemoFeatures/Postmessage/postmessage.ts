@@ -5,9 +5,12 @@ interface EmitMessage {
     sections: any[];
   };
   '@draggingId': string | undefined;
+  '@clicked'?: boolean;
 }
 
-interface OnMessage {}
+interface OnMessage {
+  getClickedSuccess?: undefined;
+}
 
 export const pmPopup = createPostMessage<EmitMessage, OnMessage>({
   is: 'parent',
