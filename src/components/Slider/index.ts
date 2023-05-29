@@ -1,1 +1,0 @@
-export { SliderBeauty } from './Slider';
