@@ -1,6 +1,6 @@
 import { createPostMessage } from '@app/utils/functions/createPostMessage';
 
-interface EmitMessage {
+interface ParentEmitMessage {
   '@sections': {
     sections: any[];
   };
@@ -8,15 +8,19 @@ interface EmitMessage {
   '@clicked'?: boolean;
 }
 
-interface OnMessage {
+interface ParentOnMessage {
+  '@iframeReady': boolean;
   getClickedSuccess?: undefined;
 }
 
-export const pmPopup = createPostMessage<EmitMessage, OnMessage>({
+interface ChildEmitMessage extends ParentOnMessage {}
+interface ChildOnMessage extends ParentEmitMessage {}
+
+export const pmPopup = createPostMessage<ParentEmitMessage, ParentOnMessage>({
   is: 'parent',
   iframeSelector: '#iframe-section',
 });
 
-export const pmIframe = createPostMessage<OnMessage, EmitMessage>({
+export const pmIframe = createPostMessage<ChildEmitMessage, ChildOnMessage>({
   is: 'children',
 });

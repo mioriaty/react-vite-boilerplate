@@ -1,6 +1,7 @@
 import { pmIframe } from '@app/containers/DemoFeatures/Postmessage/postmessage';
 import { useTheme } from '@emotion/react';
 import { FC, useEffect, useState } from 'react';
+import { useMount } from 'react-use';
 
 export const IframePage: FC = () => {
   const [sections, setSections] = useState<any[]>([]);
@@ -8,14 +9,19 @@ export const IframePage: FC = () => {
 
   const theme = useTheme();
 
+  useMount(() => {
+    pmIframe.emit('@iframeReady', true);
+  });
+
   useEffect(() => {
-    console.log('init');
     const off1 = pmIframe.on('@sections', data => {
       setSections(data.payload.sections);
     });
+
     const off2 = pmIframe.on('@draggingId', data => {
       setDraggingId(data.payload);
     });
+
     const off3 = pmIframe.on('@clicked', data => {
       console.log(data, 123);
       pmIframe.emit('getClickedSuccess', undefined);
