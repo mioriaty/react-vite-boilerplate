@@ -1,9 +1,4 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { ReactNode } from 'react';
-import { useCallback } from 'react';
-import { useRef } from 'react';
-import { FC } from 'react';
+import { FC, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 
 import { checkElementIntersectingViewport } from './checkElementIntersectingViewport';
 import createIntersectionObserver from './createIntersectionObserver';

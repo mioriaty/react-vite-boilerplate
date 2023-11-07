@@ -45,7 +45,8 @@ export const initState: TodoItem[] = [
 const todoState = createState<TodoItem[]>(initState, { stateName: '__TODO__', useLocalStorage: true });
 
 export class TodoService {
-  async getTodos() {
+  async getTodos(search?: string) {
+    console.log(search);
     await delay(1000);
     return todoState.getState();
   }

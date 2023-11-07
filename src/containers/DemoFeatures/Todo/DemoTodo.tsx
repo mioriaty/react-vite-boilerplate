@@ -2,7 +2,7 @@ import { AsyncComponent } from '@app/components/AsyncComponent';
 import { Button } from '@app/components/Button';
 import { useAppDispatch, useAppSelector } from '@app/hooks/useAppRedux';
 
-import { todoActions, todoSelector } from './store';
+import { getTodosWithThunk, todoSelector } from './store';
 
 export const DemoTodo = () => {
   const { todo, getStatus } = useAppSelector(todoSelector);
@@ -12,8 +12,8 @@ export const DemoTodo = () => {
     <div css={{ width: '600px' }}>
       <h2>Demo todo</h2>
       <Button
-        onClick={() => {
-          dispatch(todoActions.getTodos({ search: 'heheh' }));
+        onClick={async () => {
+          dispatch(getTodosWithThunk('hehe'));
         }}
         css={{ marginRight: '8px' }}
       >

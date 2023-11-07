@@ -1,3 +1,4 @@
+import { getTodosWithThunk } from '@app/containers/DemoFeatures/Todo/store/actions';
 import { TodoItem } from '@app/services/Todo';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -69,6 +70,18 @@ export const todoSlice = createSlice({
     deleteTodoFailed: (state, action: PayloadAction<{ id: string }>) => {
       state.deleteQueueStatus = state.deleteQueueStatus.filter(id => id !== action.payload.id);
     },
+  },
+  extraReducers(builder) {
+    builder.addCase(getTodosWithThunk.pending, state => {
+      state.getStatus = 'loading';
+    });
+    builder.addCase(getTodosWithThunk.fulfilled, (state, action) => {
+      state.getStatus = 'succeeded';
+      if (action.payload) state.todo = action.payload;
+    });
+    builder.addCase(getTodosWithThunk.rejected, state => {
+      state.getStatus = 'failed';
+    });
   },
 });
 
